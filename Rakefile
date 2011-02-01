@@ -13,12 +13,14 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "mu"
-  gem.homepage = "http://github.com/tlichtenberg/mu"
+  gem.homepage = "http://github.com/pcapr/mu"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "general purpose mu gem"
+  gem.description = "general purpose mu gem"
   gem.email = "lichtenberg.tom@gmail.com"
-  gem.authors = ["tlichtenberg"]
+  gem.authors = ["pcapr"]
+  gem.executables = ['mu']
+  gem.files = ['lib/**/*.rb','test/data/*'].to_a
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'

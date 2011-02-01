@@ -1,19 +1,751 @@
-= mu
+Mu Ruby Gem
+Cool subtitle here
+Introduction text here.....
+Before Using This Gem:
+	•	Ensure that you have installed the necesssary software. You must have installed ruby 1.8.6 and the following gems (type sudo gem install <gem>):
+	•	hexy. This ensures that hex dumps print pretty :)
+	•	json_pure. Don't confuse this with the json gem (that won't work).
+	•	nokogiri. See http://nokogiri.org/tutorials/installing_nokogiri.html for help.
+	•	rest-client. Used for HTTP calls.
+	•	mime-types. Required by REST-client.
+	•	Set the Mu environment variables.
+	•	MU_IP. Set the default IP address of the Mu management interface.
+	•	MU_ADMIN_USER. Set the default name of the admin user.
+	•	MU_ADMIN_PASS. Set the default admin user password.
+Executables
+      go to section »
+Command-line applications for running Scale tests, Test Sets, and working in the Scenario Editor.
+	•	cmd_appid   
+	•	cmd_runscale
+	•	cmd_runverify
+	•	cmd_runscenario
+Legacy REST API Commands
+      go to section »
+    These commands provide access to legacy REST API commands supported by the Mu system.
+	•	cmd_ddt
+	•	cmd_scale
+	•	cmd_netconfig
+	•	cmd_muapi
+	•	cmd_homepage
+	•	cmd_system
+	•	cmd_cli
+API Library Classes
+      go to section »
+API library classes that can be ‘required’ and used within Ruby scripts like most rubygems.
+	•	ddt
+	•	scale
+	•	netconfig
+	•	muapi
+Executables
+Command-line applications for running Studio Scale, Studio Verify, and the Scenario Editor.
+	•	cmd_appid   
+	•	cmd_runscale
+	•	cmd_runverify
+	•	cmd_runscenario
+cmd_appid
+Runs Mu Studio multi-host app_id msl files in Studio Scale, in client/server passthrough mode, collapsing all hosts in the Scenario to two. Runs a single msl file or a directory of msl files. Supports command-line options to specify the Mu parameters, interfaces to use, and the concurrency pattern.
+Command
+Description & Examples
+help
+Gets help for all cmd_appid commands: help
+mu cmd_appid:help
+run_file
+Runs the specified .msl file: run_file -s msl-filename
+mu cmd_appid:run_file -s msl_file -i a1,a2 -m admin:admin@10.10.2.2 -p 1-10000:60
+run_dir
+Runs all .msl files in the specified directory: run_dir -d msl-directory
+mu cmd_appid:run_dir -d msl_file_directory -i a1-10000,a2 -m admin:admin@10.10.2.2 -p 1-100000:360
 
-Description goes here.
+running?
+Gets status of the scale player: running?
+mu cmd_appid:running?
+Options (short & long form)
+Description
+-c
+--csv csv-filename
+Specify the filename of the .csv file that contains the test cases to run.
+-d
+--dir directory
+Specify the directory that contains .msl files to run(required for run_dir).
+-h
+--help
+Get help on command line options.
+-i
+--interfaces interfaces
+Specify Mu interfaces as a comma-separated list. Example: b1, b2. When using an IP range, specify range and offset. Example: b1-1000:0,b2
+-m
+--mu_string user:password@mu-ip
+Specify the user, password, and mgmt IP of the Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--pattern con-start:dur,con-end:dur
+Specify pattern as concurrency_start:duration,concurrency-end:duration. Duration is in seconds. Example: 1-10000:60,10000-1:30.
+-s
+--scenario msl-filename
+Specify the .msl filename (required for run_msl)
+-t
+--test
+Run a verification check only.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_runscale
+Runs Mu Studio scenario msl files in Studio Scale, requiring that all interfaces and hosts used in the scenario are specified on the command-line through the –i option. Runs either a single msl file or a directory of msl files, and has command-line options to specify the Mu parameters, the interfaces to use, and the pattern in which to run.
+Command
+Commands & Examples
+help
+Gets help for all cmd_runscale commands: help
+mu cmd_runscale:help
+run_file
+Runs the specified .msl file: run_file -s msl-filename  -i interfaces/hosts -p pattern
+mu cmd_runscale:run_file -s msl_file -i a1,dell-9 -p 1-10000:30
+run_dir
+Runs all .msl files in the specified directory: run_dir -d msl_directory
+mu cmd_runscale:run_dir -d msl_file_directory
 
-== Contributing to mu
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+running?
+Gets status of the scale player: running?
+mu cmd_runscale:running?
+Options (short & long form)
+Description
+-c
+--csv csv-filename
+Specify the filename of the .csv file that contains the test cases to run.
+-d
+--dir directory
+Specify the directory that contains .msl files to run(required for run_dir).
+-f
+--default_host default-host
+Specify the default host. This host is used for all hosts in the scenario which have not been explicitly assigned
+-h
+--help
+Get help on command line options.
+-i
+--interfaces interfaces
+Specify Mu interfaces as a comma-separated list. Example: b1, b2. When using an IP range, specify range and offset. Example: b1-1000:0,b2
+-m
+--mu_string user:password@mu-ip
+Specify the user, password, and mgmt IP of the Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--pattern con-start:dur,con-end:dur
+Specify pattern as concurrency_start:duration,concurrency-end:duration. Duration is in seconds. Example: 1-10000:60,10000-1:30.
+-s
+--scenario msl-filename
+Specify the .msl filename (required for run_msl)
+-t
+--test
+Run a verification check only.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_runverify
+Runs a Studio Verify test, given a Mu Studio Scenario and Test Set (these templates must be in Mu Studio XML format).
+Command
+Commands & Examples
+help
+Gets help for all cmd_runverify commands: help
+mu cmd_runverify:help
+run
+Runs the specified Test Set template for the specified Scenario: run -s scenario.xml -t test-set.xml -i interfaces/hosts
+mu cmd_runverify:run -s my_scenario -t my_testset -i a1,my-server
+Options (short & long form)
+Description
+-c
+--channels hosts
+Specify channel hosts as a comma-separated list.
+-d
+--dir directory
+Specify the directory with Scenario templates to run.
+-h
+--help
+Get help on command line options.
+-i
+--interfaces interfaces
+Specify Mu interfaces and network hosts as a comma-separated list. Example: b1, b2. When using an IP range, specify range/offset. Example: b1-1000:0,web-server
+-m
+--mu_string user:password@mu-ip
+Specify the user, password, and mgmt IP of the Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--options option:value
+Specify option/value pairs as a comma-separated list. Example: user:jane,email:jsmith@itemp.com
+-s
+--scenario scenario-template
+Specify the Scenario template to run (must be xml).
+-t
+--testset testset-template
+Specify the Test Set template to run (must be xml).
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_runscenario
+Verifies a Mu Studio scenario xml template.
+Command
+Commands & Examples
+help
+Gets help for all cmd_runscenario commands: help
+mu cmd_runscenario:help
+run
+Runs the specified Scenario template: run -s scenario.xml -i interfaces/hosts
+mu cmd_runscenario:run -s my_scenario -i a1,my-server
+Options (short & long form)
+Description
+-c
+--channels hosts
+Specify channel hosts as a comma-separated list.
+-d
+--dir directory
+Specify the directory with Scenario templates to run.
+-h
+--help
+Get help on command line options.
+-i
+--interfaces interfaces
+Specify Mu interfaces and network hosts as a comma-separated list. Example: b1, b2. When using an IP range, specify range/offset. Example: b1-1000:0,web-server
+-m
+--mu_string user:password@mu-ip
+Specify the user, password, and mgmt IP of the Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-s
+--scenario scenario-template
+Specify the Scenario template to run (must be xml).
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+ 
+API Methods
+These commands provide access to legacy REST API commands supported by the Mu system.
+	•	cmd_muapi
+	•	cmd_netconfig
+	•	cmd_ddt
+	•	cmd_scale
+	•	cmd_homepage
+	•	cmd_system
+	•	cmd_cli
+cmd_muapi
+Use these commands to access the legacy REST API for Test Runs (Protocol Mutation, Scenario Mutation, DoS, and PV tests).
+Command
+Description & Examples
+help
+Gets help for all cmd_muapi commands: help
+mu cmd_muapi:help
+archive
+Manage archives (reports) for Test Runs. The status and get commands require the job_id returned by the run command. archive -c command -u uuid/job-id
 
-== Copyright
+mu cmd_muapi:archive -c run -u 52add3cf-9040-42ce-b263-8233039931d5
+Get the status of the archive report:
+mu cmd_muapi:archive -c status -u 1296064526931
+Download the archive report:
+mu cmd_muapi:archive -c get -u 1296064526931
+backup
+Manage system backup files. backup -c command
+Generate system backup:
+mu cmd_muapi:backup -c run
+Get the status of the backup job:
+mu cmd_muapi:backup -c status
+Download the backup file (requires a name): backup -c get -n filename
+mu cmd_muapi:backup -c get -n my-backup
+The Mu system automatically appends the .dat extension to all backup files.
+capture
+Manage pcaps recorded by the Mu system. The status and get commands require the job-id returned by the run command: capture -c command -p port-number -u job-id
+Start recording packets (this command returns the job-id):
+mu cmd_muapi:capture -c run -p a1
+Get the status of the packet recording job:
+mu cmd_muapi:capture -c status -p a1 -u 1296064526931
+Download the recorded packet capture:
+mu cmd_muapi:capture -c get -p a1 -u 1296064526931
+delete
+Delete the specified Test Run or template: delete -u uuid
+mu cmd_muapi:delete -u 52add3cf-9040-42ce-b263-8233039931d5
+export_by_name
+Export the specified template: export_by_name -n name -t type
+mu cmd_muapi:export_by_name -n my_monitor -t monitor
+get_faults
+Get a list of faults (xml format) from a Test Run: get_faults -u uuid -v
+mu cmd_muapi:get_faults -u 52add3cf-9040-42ce-b263-8233039931d5 -v
+get_name
+Get details for the specified Test Run or template: get_name -u uuid
+mu cmd_muapi:get_name -u 52add3cf-9040-42ce-b263-8233039931d5
+list
+ Get a list of templates by type: list -t template-type
+mu cmd_muapi:list -t monitor
+list_by_status
+Get a list of Test Runs by status: list_by_status -s status
+mu cmd_muapi:list_by_status -s finished
+list_type
+Get a list of all template types: list_types
+mu cmd_muapi:list_types
+pause
+Pause a Test Run: pause -u uuid
+mu cmd_muapi:pause -u 52add3cf-9040-42ce-b263-8233039931d5
+resume
+Resume a Test Run: resume -u uuid
+mu cmd_muapi:pause -u 52add3cf-9040-42ce-b263-8233039931d5
+run
+Start a Test Run (to rename, use the -b argument): run -u uuid [-b new-name]
+mu cmd_muapi:run -u 52add3cf-9040-42ce-b263-8233039931d5 -b true
+status
+Get the status of a Test Run: status -u uuid
+mu cmd_muapi:status -u 52add3cf-9040-42ce-b263-8233039931d5
+stop
+Stop a Test Run: stop -u uuid
+mu cmd_muapi:stop -u 52add3cf-9040-42ce-b263-8233039931d5
+Options (short & long form)
+Description
+-b
+--boolean value
+Specify a boolean value (true or false).
+-c
+--command command
+Specify the command to run (run, get, status, etc.)
+-m
+--mu_string user:password@mu-ip
+Specify the user, password, and mgmt IP of the Mu system. Example: admin:admin@10.9.8.7
+-n
+--name name
+Specify a Test Run or template name.
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--port port-number
+Specify the port number.
+-s
+--status status
+Specify the status filter (running, finished, aborted queued, or failed)
+-t
+--type template-type
+Specify the type of template.
+-u
+--uuid uuid/job-id
+Specify the UUID of the template to run. For archive, backup, and capture commands, this option takes a job-id value.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_netconfig
+Use these commands to access the legacy REST API for configuring Mu interfaces, network hosts, and routes.
+Command
+Description & Examples
+help
+Gets help for all cmd_netconfig commands: help
+mu cmd_netconfig:help
+clear_hosts
+Remove all network hosts configured in the Mu system: clear_hosts
+mu cmd_netconfig:clear_hosts
+clear_interfaces
+Clear settings for specified Mu interfaces: clear_interfaces -i interfaces
+mu cmd_netconfig:clear_interfaces -i b1,b2
+clear_routes
+Remove all user-configured routes in the Mu system: clear_routes
+mu cmd_netconfig:clear_routes
+clear_vlans
+Remove all vlans for all Mu interfaces: clear_vlans
+mu cmd_netconfig:clear_vlans
+create
+Create a network object such as a host or route: create -j object -e value
+mu cmd_netconfig:create -j {"default": false,"direct": false,"dst": "10.0.0.0","dst_pfx_len": 8,"gateway": "192.168.100.1","interface": "a1","interface_display_name": "A1","metric": 1,"readonly": false} -e route
+delete
+Delete a network object such as host or route: delete -e value
+mu cmd_netconfig:delete -e Web-Server
+get
+Get details for a network object: get -e value
+mu cmd_netconfig:get -e a1
+modify
+Modify a network object such as a host or route:modify -j object -e value
+mu cmd_netconfig:modify -j {"mac": "","name": "Web-Server","notes": "","v4_addr": "192.168.112.205","v6_global_addr": "","v6_local_addr": ""} -e host
+resolve_hosts
+Get IP address for specified network host: resolve_hosts host
+mu cmd_netconfig:resolve_hosts Web-Server
+restore
+Restore from specified file (to overwrite existing object, use the -b argument): restore -f filepath [-b clear-existing]
+mu cmd_netconfig:restore -f my_muhosts/web-server.json true
+save
+Save changes to the Mu system: save
+mu cmd_netconfig:save
+Options (short & long form)
+Description
+-b
+--boolean value
+Specify a boolean value (true or false).
+-e
+--element value
+Specify a value for the associated command. Example: interfaces or interfaces/a1
+-f
+--filepath filepath
+Specify the path to a file.
+-h
+--help
+Get help on command line options.
+-i
+--interfaces interface-or-host
+Specify Mu interfaces or network hosts as a comma-separated list. Example: b1, web-server.
+-j
+--json object
+Specify a json object as a text string.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_ddt
+Use these commands to access the legacy REST API for Test Sets (Studio Verify). Until import_csv is implemented, the .csv file must exist on the Mu System and include a UUID.
+tr> tr>
+Command
+Description & Examples
+display_results
+Displays results for the current Test Set: display_results
+mu cmd_ddt:display_results
+new_session
+Create a new session: new_session
+mu cmd_ddt:new_session
+load_scenario
+Load the specified Scenario template: load_scenario -u uuid
+mu cmd_ddt:load_scenario -u 52add3cf-9040-42ce-b263-8233039931d5
+get_hosts
+Get a list of hosts in the Test Bed: get_hosts
+mu cmd_ddt:get_hosts
+set_hosts
+Configure the hosts in the Test Bed: set_hosts -r role -n name -y type
+mu cmd_ddt:set_hosts -r HTTP_Client,HTTP_Server -n a1,Web-Server -y v4
+get_channels
+Get a list of channels in the Test Bed: get_channels
+mu cmd_ddt:get_channels
+set_channels
+Configure the channels in the Test Bed: set_channels -r role -n name
+mu cmd_ddt:set_channels -r SSH_Channel -n Web-Server
+get_options
+Get a list of options in the Test Set: get_options
+mu cmd_ddt:get_options
+set_options
+Configure the option values for the Test Set: set_options -n name -p value
+mu cmd_ddt:set_options -n username -p jsmith
+get_sessions
+Get a list of all sessions: get_sessions
+mu cmd_ddt:get_sessions
+setup_test
+Setup the Test Bed, reserving the Mu interfaces: setup_test
+mu cmd_ddt:setup_test
+run
+Run a Test Set: run
+mu cmd_ddt:run
+run_testset
+Run the specified Test Set: run_testset -u uuid
+mu cmd_ddt:run_testset -u 04aa248a-0b9b-4bf6-97e1-aab691d0acf1
+get_testset_results
+Get results for the current Test Set: get_testset_results
+mu cmd_ddt:get_testset_results
+get_testset_status
+Get status for the current Test Set: get_testset_status
+mu cmd_ddt:get_testset_status
+teardown_test
+Unsets the Test Bed selections, releasing the Mu interfaces: teardown_test
+mu cmd_ddt:teardown_test
+close_session
+Closes the current session: close_session
+mu cmd_ddt:close_session
+close_all_sessions
+Closes all existing sessions: close_all_sessions
+mu cmd_ddt:close_all_sessions
+csv_export
+Exports a Test Set from the Mu system to a. csv file: csv_export -u uuid
+mu cmd_ddt:csv_export -u 52add3cf-9040-42ce-b263-8233039931d5
+Options (short & long form)
+Description
+-f
+--filename filename
+Specify the template name for saving an imported Test Set.
+-h
+--help
+Get help on command line options.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-n
+--names name-array
+Specify host names or channel names in a comma-separated array. Example: a1,Web-Server
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--option_values value-array
+Specify values for Test Set options in a comma-separated array. Example: bob,jane,mary,tom
+-r
+--roles role-array
+Specify host roles in a comma-separated array. Example: HTTP_Client,HTTP_Server
+-t
+--testset filename.csv
+Specify the name of the .csv file to import.
+-u
+--uuid uuid
+Specify the UUID of the Scenario or Test Set.
+-v
+--verbose
+Set the Logger::DEBUG level.
+-y
+--type type
+Specify network layer (v4, v6, l2) for all hosts in the Test Bed. Example: v4
+back to top ↑
+cmd_scale
+Use these commands to access the legacy REST API for Scale test (Studio Scale).
+Command
+Description & Examples
+about
+Lists information for the Scale Player and all active and inactive Scale Engines: about
+mu cmd_scale:about
+configure
+Configure any element of the scale json object : configure -p parameter -pv value
+mu cmd_scale:configure -p json_element -pv json_element_value
+data
+Gets chart data for the Scale test: data -w view -z zoom -ps position -b bot_id
+mu cmd_scale:data -w TIMELINE -z 1 -ps 0 -b bots_10.10.6.200:1
+delete_scale_engine
+Delete the specified Scale Engine:delete_scale_engine -b bot_id
+mu cmd_scale:delete_scale_engine -b bots_10.10.6.200:1
+help
+Gets help for all cmd_scale commands: help
+mu cmd_scale:help
+list
+Returns the current Scale Player's UUID: list
+mu cmd_scale:list
+pattern
+Gets the pattern for the Scale test: pattern -z zoom -ps position
+mu cmd_scale:pattern -z 1 -ps 0
+pcap
+Gets a pcap from a specific Scale Engine: pcap -b bot_id -f filename
+mu cmd_scale:pcap -b bots_10.10.6.200:1 -f bot_1_pcap
+release
+Release the Scale Player: release
+mu cmd_scale:release
+release_scale_engine
+Releases the specified Scale Engine:release_scale_engine -b bot_id
+mu cmd_scale:release_scale_engine -b bots_10.10.6.200:1
+reserve_scale_engine
+Reserves the specified Scale Engine:reserve_scale_engine -b bot_id
+mu cmd_scale:reserve_scale_engine -b bots_10.10.6.200:1
+session
+Create a new Scale Player session: session
+mu cmd_scale:session
+start
+Start the Scale test: start -c scale-test -m user:pass@mu-ip
+mu cmd_scale:start -c scale.json -m admin:admin@10.10.2.2
+status
+Gets information about the currently running Scale test: status
+mu cmd_scale:status
+statuses
+Gets the status of all active and inactive Scale engines: statuses
+mu cmd_scale:statuses
+stop
+Stops the Scale test: stop
+mu cmd_scale:stop
+update
+Update the pattern dynamically (while the Scale test is running): update -p parameter -pv parameter-value
+mu cmd_scale:update -p delay -pv 250 -p volume -pv 100000
+verify
+Verifies a Scale test: verify
+mu cmd_scale:verify
+Options (short & long form)
+Description
+-b
+--bot-id scale-engine-id
+Specify a Scale Engine using its bot-id value.
+-c
+--config-file json-filename
+Specify a .json file that contains the configuration data.
+-f
+--filename pcap-filename
+Specify a name for the .pcap file.
+-h
+--help
+Get help on command line options.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-p
+--params parameters
+Specify parameters for initial configuration or for update. Supports delay and volume parameters.
+-ps
+--view_position value
+Specify the position in the timeline view for which to return data. At this time, only position 0 is supported.
+-pv
+--param_value value
+Specify a value for a parameter.
+-v
+--verbose
+Set the Logger::DEBUG level.
+-w
+--view view
+Specify the view (RUNTIME or CALLGRAPH) for which to return data.
+-z
+--zoom zoom-level
+Specify the zoom level (0, .5, or 1) in the timeline view for which to return data. 1 returns data for 100% of the time range, 0.5 returns data for 50% of the time range, and 0 returns only the last minute of data.
+back to top ↑
+cmd_homepage
+Use these commands to access the Mu UI homepage.
+Command
+Description & Examples
+all
+Gets the complete set of information displayed on the Mu home page: all
+mu cmd_homepage:all
+help
+Gets help for all cmd_homepage commands: help
+mu cmd_homepage:help
+latest_test
+Gets an array of the latest test results: latest_test
+mu cmd_homepage:latest_test
+queue_test
+Gets an array of tests in the Test Queue: queue_test
+mu cmd_homepage:queue_test
+recent
+Gets the "What's New" section from the Mu homepage: recent
+mu cmd_homepage:recent
+status
+Gets system status for licenses, backup, and updates: status
+mu cmd_homepage:status
+Options (short & long form)
+Description
+-h
+--help
+Get help on command line options.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_system
+Use these commands to restart system services or to get status details for the Mu system.
+Command
+Description & Examples
+restart
+Restart the Mu system services (this does not reboot the appliance): restart
+mu cmd_system:restart
+status
+Gets the complete System status page: status
+mu cmd_system:status
+status2
+Gets additional system status information, imncluding hard drive, model and serial data: status2
+mu cmd_system:status2
+Options (short & long form)
+Description
+-h
+--help
+Get help on command line options.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+cmd_cli
+Use these commands to access the Mu CLI.
+Command
+Description & Examples
+cli_help
+Get help for all cmd_cli commands: cli_help
+mu cmd_cli:cli_help
+cli_history
+Display the command line history for the current session: cli_help
+mu cmd_cli:history
+ping
+Ping the specified IP address from the Mu system: ping -a ip-address
+mu cmd_cli:ping -a 10.10.10.1
+question
+Show the available CLI commands: question
+mu cmd_cli:question
+traceroute
+Get the network route to a specified IP address from the Mu system: traceroute -a ip-address
+mu cmd_cli:traceroute -a 10.10.10.1
+Options (short & long form)
+Description
+-h
+--help
+Get help on command line options.
+-m
+--mu_string user:password@mu-ip
+Specify a user, password, and mgmt IP of a Mu system. Example: admin:admin@10.9.8.7
+-o
+--output filename
+Specify the filename to which you want to output logs.
+-v
+--verbose
+Set the Logger::DEBUG level.
+back to top ↑
+ 
+Library Classes
+API library classes that can be ‘required’ and used within Ruby scripts like most rubygems.
+Command
+Description & Examples
+muapi
+require 'rubygems'
+require 'mu'
+api = Mu::Muapi.new(“10.10.2.2”, “admin”, “admin”)
+$log.level = Logger::INFO
+Example: api.list_by_status("running")
+ddt
+require 'rubygems'
+require 'mu'
+api = Mu::Ddt.new(“10.10.2.2”, “admin”, “admin”)
+$log.level = Logger::INFO
+Example: api.new_session
+scale
+require 'rubygems'
+require 'mu'
+api = Mu::Scale.new(“10.10.2.2”, “admin”, “admin”)
+$log.level = Logger::INFO
+Examples:
+api.configure -p musl -pv <scenario.msl>
+api.configure -p csv -pv <testset.csv>
+api.configure -p pattern -pv <pattern.json>
+api.start
+api.status
+api.stop
+api.release
+netconfig
+require 'rubygems'
+require 'mu'
+api = Mu::Netconfig.new(“10.10.2.2”, “admin”, “admin”)
+$log.level = Logger::INFO
+Example: api.get("hosts")
+ 
+back to top ↑
 
-Copyright (c) 2010 tlichtenberg. See LICENSE.txt for
-further details.
-
+Mu Dynamics Information
+Mu Dynamics Customer Care is available 9am to 5pm PST, Monday to Friday at the toll-free support line at 1-866-276-4640; international customers can also use 1-408-329-6330. For online communication, visit the Mu Dynamics Customer Care Center at http://www.mudynamics.com/support/overview.html.
+In addition to Mu UI Help and the Mu product documentation, you can also get continuous updates on Mu system capabilities using the following resources:
+Corporate
+Home • Press • Webinars, Seminars, & Podcasts • Product Demos • RSS Feed
+Social
+Twitter • Facebook • YouTube • Mu Community • Pcapr
+Blogs
+Mu Line • Mu Labs (with RSS Feed)
+Copyright 2011 Mu Dynamics Inc., All Rights Reserved.
