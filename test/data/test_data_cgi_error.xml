@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mu_config version="5.0">
+    <templates>
+        <ddt_set name="test_data_cgi_error" uuid="49cd406e-a8ca-4360-a115-e7ac33e8034f">
+            <io_delay>0</io_delay>
+            <commands>
+                <defaults_command>
+                    <options>
+                        <option>
+                            <name>scenario_user_options.data</name>
+                            <value>123</value>
+                        </option>
+                        <option>
+                            <name>scenario_user_options.data_length</name>
+                            <value>3</value>
+                        </option>
+                        <option>
+                            <name>scenario_user_options.data_type</name>
+                            <value>numbers</value>
+                        </option>
+                    </options>
+                </defaults_command>
+                <test_command>
+                    <options>
+                        <option>
+                            <name>scenario_user_options.data_type</name>
+                            <value>words</value>
+                        </option>
+                    </options>
+                    <name>error</name>
+                </test_command>
+            </commands>
+        </ddt_set>
+    </templates>
+</mu_config>

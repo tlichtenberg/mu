@@ -1,0 +1,1581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type" />
+  <title>Using the Mu Gem</title>
+  <style type="text/css">
+  
+
+#masthead{
+	margin: 0;
+	border-bottom: 1px solid #cccccc;
+	width: 600px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+}
+
+#content{
+	float: left;
+	width: 600px;
+	margin: 0;
+	padding: 0 3% 0 0;
+	line-height: 16px;
+}
+
+#siteInfo{
+	clear: both;
+	border: 1px solid #cccccc;
+	font-size: 75%;
+	color: #cccccc;
+	background-color:inherit;
+	padding: 10px 10px 10px 10px;
+	margin-top: 0px;
+	width: 100%;
+}
+
+body {
+	background-color: #FFFFFF;
+	font-family: Arial, sans-serif;
+	font-size: 9pt;
+	color: #333333;
+	left:auto;
+	top: auto;
+	bottom: auto;
+	margin: 10 0 0 10px;
+	right: auto;
+	width: 95%;
+}
+
+p {
+	font-family: Arial, sans-serif;
+	font-size: 9pt;
+	text-align: left;
+	line-height: 16px;
+	width: auto;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 0px;
+}
+
+a:link, a:visited {
+	color: #3B6EBF;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #3B6EBF;
+	text-decoration: underline;
+	}
+
+.note {
+	font-style: italic;
+	font-size: 9pt;
+	font-family: Helvetica, Arial, sans-serif;
+	margin-top: 10px;
+	margin-right: 0;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	width: 85%;
+}
+
+li {
+	font-family: Arial, sans-serif;
+	font-size: 9pt;
+	font-weight: normal;
+	line-height: 16px;
+	width: auto;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 6px;
+	padding-top: 0px;
+	padding-right: 2%;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+ul {
+	list-style-type: disc;
+	list-style-position: outside;
+	margin-top: 8px;
+}
+
+
+h1{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	color: #E95D20;
+	background-color: inherit;
+	padding-top: 10px;
+	background-image: none;
+	font-weight: bold;
+	margin: 0px;
+	width: 100%;
+	text-align: center;
+}
+.subhead {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-style: italic;
+	line-height: 16px;
+	text-align: center;
+	margin-right: 120px;
+	margin-left: 120px;
+}
+
+h2{
+	-moz-border-radius-bottomleft:0;
+	-moz-border-radius-bottomright:0;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+	color:#E95D20;
+	font-family:Arial, sans-serif;
+	font-size:10pt;
+	font-style:oblique;
+	margin:25 0 0 8px;
+	padding: 4 2 1 0px;
+}
+
+h3{
+	-moz-border-radius-bottomleft:0;
+	-moz-border-radius-bottomright:0;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+	border:1px solid silver;
+	font-size: 9pt;
+	color: #333333;
+	background-color: #E7E7E7;
+	font-weight: bold;
+	width: 600px;
+	padding-top: 4px;
+	padding-bottom: 1px;
+	padding-left: 6px;
+	margin-top: 20px;
+	margin-left: 6px;
+}
+
+h4{
+	font-size: 9pt;
+	font-weight: bold;
+	vertical-align: top;
+	text-align: left;
+	margin-top: 0px;
+	margin-right: 15px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	color: #333333;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	border: #DFDFDF; }
+	
+	
+	h5{
+	font-size: 9pt;
+	color: #333333;
+	font-style: italic;
+	font-weight: normal;
+	margin: 6px 2px 4px 2px;
+	padding: 0px;
+}
+
+h6 {
+	border:1px solid silver;
+	font-size: 9pt;
+	color: #333333;
+	font-weight: normal;
+	background-color: #E7E7E7;
+	width: 96%;
+	padding-top: 4px;
+	padding-bottom: 1px;
+	padding-left: 4px;
+	margin-top: 15px;
+	margin-left: 4px;
+	margin-right:2px;
+	margin-bottom:1px;
+}
+
+.copyright {
+	font-size: 9pt;
+	font-style: italic;
+}
+
+/*********** begin wide tables ***********/
+table.wide {
+	background: #FFFFFF;
+	border-collapse: collapse;
+	align: left;
+	width: 98%;
+	margin-top: 3%;
+	margin-right: 1%;
+	margin-bottom: 3%;
+	margin-left: 15px;
+}
+table.wide th, table.wide td {
+  border: 1px silver solid;
+  padding: 0.2em;
+}
+
+table.wide td {
+	width:auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	height: auto;
+	line-height:16px;
+	padding:6px 2px 2px 4px;
+	}
+
+table.wide th {
+	background: #E7E7E7;
+	text-align: left;
+	vertical-align: middle;
+	font: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #333333;
+	padding-top: 4px;
+	padding-right: 4px;
+	padding-bottom: 2px;
+	padding-left: 6px;
+}
+
+#important{
+	float: clear;
+	color: #333333;
+	background-color: #e7eedc;
+	-moz-border-radius-bottomleft:0;
+	-moz-border-radius-bottomright:0;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+	border:1px solid silver;
+	font-size: 9pt;
+	padding-top: 2px;
+	padding-bottom: 0px;
+	padding-left: 2px;
+	margin-top: 15px;
+	margin-left: 15px;
+	margin-right: 35px;
+	margin-bottom: 15px;
+}
+
+.code{
+	font-family: Courier, monospace;
+	font-size: 9pt
+  }
+
+
+/*********** end wide tables ***********/
+
+-->
+  </style>
+</head>
+<body>
+<div id="masthead">
+  <h1>Mu Ruby Gem</h1>
+  <p align="center" class="subhead"></p>
+</div>
+
+<div id="content"> 
+  <p><font class="body"><a name="top" id="cmd_runscale4"></a></font>  </p>
+  <div id="important">
+    <p><strong>Before Using  This Gem</strong>:</p>
+<ul>
+  <li><strong><em>Ensure that you have installed the necesssary software</em></strong>. You must have   installed ruby 1.8.6 and the following gems (type <strong>sudo gem
+      install</strong> <em>&lt;gem&gt;</em>):
+      <ul>
+        <li><em>hexy</em>. This ensures that  hex dumps print pretty :)</li>
+          <li><em>json_pure</em>. Don't confuse this with the json gem (that won't work).</li>
+          <li><em>nokogiri</em>. See http://nokogiri.org/tutorials/installing_nokogiri.html for help.</li>
+          <li><em>rest-client</em>. Used for HTTP calls. </li>
+          <li><em>mime-types</em>. Required by REST-client.</li>
+        </ul>
+  </li>
+  <li><strong><em>Set the Mu environment variables</em></strong>. 
+    <ul>
+      <li><em><span class="MsoNormal1">MU_IP</span></em><span class="MsoNormal1">. Set the default IP addr</span>ess of the Mu management interface.</li>
+      <li><em>MU_ADMIN_USER</em>. Set the  default name of the admin user.</li>
+      <li><em>MU_ADMIN_PASS</em>. Set the  default <span class="MsoNormal1">admin user password</span>.</li>
+    </ul></li></ul></div>
+  <h2 class=MsoNormal>Executables</h2>
+&nbsp;&nbsp;&nbsp;<a href="#executables">&nbsp;&nbsp;&nbsp;go to section &raquo;</a>
+  <p>Command-line applications for running Scale tests, Test Sets, and working in the Scenario Editor. </p>
+<ul>
+  <li><a href="#cmd_appid">cmd_appid</a><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
+  <li><a href="#cmd_runscale">cmd_runscale</a></li>
+  <li><a href="#cmd_runverify">cmd_runverify</a></li>
+  <li><a href="#cmd_runscenario">cmd_runscenario</a></li>
+</ul>
+<h2>Legacy REST API Commands</h2>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#executables"></a>&nbsp;<a href="#executables"></a>&nbsp;<a href="#executables"></a><a href="#api-methods">go to section &raquo;</a>
+    <p>&nbsp;&nbsp;&nbsp; These commands provide access to legacy REST API commands supported by the Mu system. </span></p>
+  <ul>
+  <li><a href="#cmd_ddt">cmd_ddt</a></li>
+      <li><a href="#cmd_scale">cmd_scale</a></li>
+      <li><a href="#cmd_netconfig">cmd_netconfig</a></li>
+      <li><a href="#cmd_muapi">cmd_muapi</a></li>
+      <li><a href="#cmd_homepage">cmd_homepage</a></li>
+      <li><a href="#cmd_system">cmd_system</a></li>
+      <li><a href="#cmd_cli">cmd_cli</a></li>
+  </ul>
+    <h2>API Library Classes</h2>
+&nbsp;&nbsp;&nbsp;<a href="#library-classes">&nbsp;&nbsp;&nbsp;go to section &raquo;</a>
+    <p>API library classes that can be &lsquo;required&rsquo; and used within Ruby scripts
+      like most rubygems.</p>
+  <ul>
+      <li><a href="#ddt">ddt</a></li>
+      <li><a href="#scale">scale</a></li>
+      <li><a href="#netconfig">netconfig</a></li>
+      <li><a href="#muapi">muapi</a></li>
+  </ul>
+
+<h3><a name="executables" id="features3"></a>Executables  </h3>
+  <p>Command-line applications for running Studio Scale, Studio Verify, and
+  the Scenario Editor.</p>
+  <ul>
+    <li><a href="#cmd_appid">cmd_appid</a><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
+    <li><a href="#cmd_runscale">cmd_runscale</a></li>
+    <li><a href="#cmd_runverify">cmd_runverify</a></li>
+    <li><a href="#cmd_runscenario">cmd_runscenario</a>  </li>
+  </ul>
+  <h2><a name="cmd_appid" id="features4"></a>cmd_appid</h2>
+  <p>Runs Mu Studio multi-host app_id msl files in Studio
+        Scale, in client/server passthrough mode, collapsing all hosts in the
+        Scenario to two. Runs  a single msl file or a directory of msl files. Supports command-line options to specify the Mu parameters,  interfaces to
+  use, and the concurrency pattern.</p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+  <tr>
+    <th>Command</th>
+    <th>Description &amp; Examples</th>
+  </tr>
+  <tr>
+  <td><em>help</em></td>
+      <td><p>Gets help for all cmd_appid commands: <strong>help</strong></p>
+      <h6 class="code">mu cmd_appid:help</h6></td>
+    </tr>
+    <tr>
+      <td><h5>run_file</h5></td>
+      <td><p> Runs the specified .msl file: <strong>run_file -s</strong> <em>msl-filename</em></p>
+<h6><span class="code">mu cmd_appid:run_file -s msl_file -i a1,a2 -m
+  admin:admin@10.10.2.2 -p 1-10000:60</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>run_dir</em></td>
+      <td><p>Runs all .msl files in the specified directory: <strong>run_dir -d</strong> <em>msl-directory</em></p>
+<h6><span class="code">mu cmd_appid:run_dir -d msl_file_directory -i a1-10000,a2
+          -m admin:admin@10.10.2.2 -p 1-100000:360</span></h6>
+      <p></p></td>
+    </tr>
+    <tr>
+      <td><em>running?</em></td>
+      <td><p>Gets status of the scale player: <strong>running?</strong></p>
+      <h6><span class="code">mu cmd_appid:running?</span></h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-c</td>
+      <td width="36%"><strong>--csv</strong> <em>csv-filename</em></td>
+      <td>Specify the filename of the .csv file that contains the test cases  to run.</td>
+    </tr>
+    <tr>
+      <td>-d</td>
+      <td><strong>--dir</strong> <em>directory</em></td>
+      <td>Specify the directory that contains .msl files to run(required for run_dir).</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-i</td>
+      <td><strong>--interfaces</strong> <em>interfaces</em></td>
+      <td>Specify Mu interfaces as a comma-separated list. Example: <span class="code">b1, b2</span>. When using an IP range, specify range and offset. Example: <span class="code">b1-1000:0,b2</span></td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify the user, password, and mgmt IP of the Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--pattern</strong> <em>con-start</em>:<em>dur</em>,<em>con-end</em>:<em>dur</em></td>
+      <td>Specify pattern as  concurrency_start:duration,concurrency-end:duration. Duration is in seconds. Example: 
+      <span class="code">1-10000:60,10000-1:30</span>. </td>
+    </tr>
+    <tr>
+      <td>-s</td>
+      <td><strong>--scenario</strong> <em>msl-filename</em></td>
+      <td>Specify the .msl filename (required for
+        run_msl)</td>
+    </tr>
+    <tr>
+      <td>-t</td>
+      <td><strong>--test</strong></td>
+      <td>Run a verification check only.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_runscale" id="cmd_runscale"></a>cmd_runscale</h2>
+  <p>Runs Mu Studio scenario msl files in Studio Scale,
+          requiring that all interfaces and hosts used in the scenario are specified on
+          the command-line through the &#8211;i option. Runs either a single msl file
+          or a directory of msl files, and has command-line options to specify the Mu
+  parameters, the interfaces to use, and the pattern in which to run.  </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Commands &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td><p>Gets help for all cmd_runscale commands: <strong>help</strong></p>
+        <h6 class="code">mu cmd_runscale:help</h6></td>
+    </tr>
+    <tr>
+      <td><h5>run_file</h5></td>
+      <td><p>Runs the specified .msl file: <strong>run_file -s</strong> <em>msl-filename</em><strong>&nbsp; -i </strong><em>interfaces/hosts</em>  <strong>-p</strong> <em>pattern</em></p>
+        <h6 class="code">mu cmd_runscale:run_file -s msl_file -i a1,dell-9  -p 1-10000:30</h6></td>
+    </tr>
+    <tr>
+      <td><em>run_dir</em></td>
+      <td><p>Runs all .msl files in the specified directory: <strong>run_dir -d </strong><em>msl_directory</em></p>
+        <h6 class="code">mu cmd_runscale:run_dir -d msl_file_directory</h6>
+        <p></p></td>
+    </tr>
+    <tr>
+      <td><em>running?</em></td>
+      <td><p>Gets status of the scale player: <strong>running?</strong></p>
+        <h6><span class="code">mu cmd_runscale:running?</span></h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-c</td>
+      <td width="36%"><strong>--csv</strong> <em>csv-filename</em></td>
+      <td>Specify the filename of the .csv file that contains the test cases  to run.</td>
+    </tr>
+    <tr>
+      <td>-d</td>
+      <td><strong>--dir</strong> <em>directory</em></td>
+      <td>Specify the directory that contains .msl files to run(required for run_dir).</td>
+    </tr>
+    <tr>
+      <td>-f</td>
+      <td><strong>--default_host</strong> <em>default-host</em></td>
+      <td>Specify the default host. This host is used for all hosts in the scenario which have not been explicitly assigned</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-i</td>
+      <td><strong>--interfaces</strong> <em>interfaces</em></td>
+      <td>Specify Mu interfaces as a comma-separated list. Example: <span class="code">b1, b2</span>. When using an IP range, specify range and offset. Example: <span class="code">b1-1000:0,b2</span></td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify the user, password, and mgmt IP of the Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--pattern</strong> <em>con-start</em>:<em>dur</em>,<em>con-end</em>:<em>dur</em></td>
+      <td>Specify pattern as  concurrency_start:duration,concurrency-end:duration. Duration is in seconds. Example: 
+        <span class="code">1-10000:60,10000-1:30</span>. </td>
+    </tr>
+    <tr>
+      <td>-s</td>
+      <td><strong>--scenario</strong> <em>msl-filename</em></td>
+      <td>Specify the .msl filename (required for
+        run_msl)</td>
+    </tr>
+    <tr>
+      <td>-t</td>
+      <td><strong>--test</strong></td>
+      <td>Run a verification check only.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_runverify" id="cmd_runscale2"></a>cmd_runverify</h2>
+  <p>Runs a Studio Verify test, given a Mu Studio Scenario and
+  Test Set (these templates must be in Mu Studio XML format).</p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Commands &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td><p>Gets help for all cmd_runverify commands: <strong>help</strong></p>
+        <h6 class="code">mu cmd_runverify:help</h6></td>
+    </tr>
+    <tr>
+      <td><h5>run</h5></td>
+      <td><p>Runs the specified  Test Set template for the specified Scenario:  <strong>run -s</strong> <em>scenario.xml</em><strong> -t </strong><em>test-set.xml</em> <strong>-i</strong><em> interfaces/hosts</em></p>
+<h6 class="code">mu cmd_runverify:run -s my_scenario -t my_testset -i a1,my-server</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-c</td>
+      <td width="36%"><strong>--channels</strong> <em>hosts</em></td>
+      <td>Specify  channel hosts as a comma-separated list. </td>
+    </tr>
+    <tr>
+      <td>-d</td>
+      <td><strong>--dir</strong> <em>directory</em></td>
+      <td>Specify the directory with Scenario templates to run.</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-i</td>
+      <td><strong>--interfaces</strong> <em>interfaces</em></td>
+      <td>Specify Mu interfaces and network hosts as a comma-separated list. Example: <span class="code">b1, b2</span>. When using an IP range, specify range/offset. Example: <span class="code">b1-1000:0,web-server</span></td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify the user, password, and mgmt IP of the Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--options</strong><em> option:value</em></td>
+      <td>Specify option/value pairs as a comma-separated list. Example: <span class="code">user:jane,email:jsmith@itemp.com</span></td>
+    </tr>
+    <tr>
+      <td>-s</td>
+      <td><strong>--scenario</strong> <em>scenario-template</em></td>
+      <td>Specify the Scenario template to run (must be xml).</td>
+    </tr>
+    <tr>
+      <td>-t</td>
+      <td><strong>--testset </strong><em>testset-template</em></td>
+      <td>Specify the Test Set template to run (must be xml).</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_runscenario" id="cmd_runscale3"></a>cmd_runscenario</h2>
+  <p>Verifies a Mu
+  Studio scenario xml template.</p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Commands &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td><p>Gets help for all cmd_runscenario commands: <strong>help</strong></p>
+        <h6 class="code">mu cmd_runscenario:help</h6></td>
+    </tr>
+    <tr>
+      <td><h5>run</h5></td>
+      <td><p>Runs the specified Scenario template: <strong>run -s</strong> <em>scenario.xml</em><strong> -i</strong><em> interfaces/hosts</em></p>
+        <h6 class="code">mu cmd_runscenario:run -s my_scenario  -i a1,my-server</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-c</td>
+      <td width="36%"><strong>--channels</strong> <em>hosts</em></td>
+      <td>Specify  channel hosts as a comma-separated list. </td>
+    </tr>
+    <tr>
+      <td>-d</td>
+      <td><strong>--dir</strong> <em>directory</em></td>
+      <td>Specify the directory with Scenario templates to run.</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-i</td>
+      <td><strong>--interfaces</strong> <em>interfaces</em></td>
+      <td>Specify Mu interfaces and network hosts as a comma-separated list. Example: <span class="code">b1, b2</span>. When using an IP range, specify range/offset. Example: <span class="code">b1-1000:0,web-server</span></td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify the user, password, and mgmt IP of the Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-s</td>
+      <td><strong>--scenario</strong> <em>scenario-template</em></td>
+      <td>Specify the Scenario template to run (must be xml).</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <p>&nbsp;</p>
+<h3><a name="api-methods" id="features"></a>API Methods</h3>
+  <p>These commands provide access to legacy REST API commands supported by the Mu system. </p>
+  <ul>
+    <li><a href="#cmd_muapi">cmd_muapi</a></li>
+    <li><a href="#cmd_netconfig">cmd_netconfig</a></li>
+    <li><a href="#cmd_ddt">cmd_ddt</a></li>
+    <li><a href="#cmd_scale">cmd_scale</a></li>
+    <li><a href="#cmd_homepage">cmd_homepage</a></li>
+    <li><a href="#cmd_system">cmd_system</a></li>
+    <li><a href="#cmd_cli">cmd_cli</a>  </li>
+  </ul>
+  <h2><a name="cmd_muapi" id="cmd_runscale5"></a>cmd_muapi</h2>
+  <p>Use these commands to access the  legacy REST API for Test Runs (Protocol Mutation, Scenario Mutation, DoS, and PV tests). </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td>Gets help for all cmd_muapi commands: <strong>help</strong>
+        <h6 class="code">mu cmd_muapi:help</h6></td>
+    </tr>
+    <tr>
+      <td><em>archive</em></td>
+      <td>Manage archives (reports) for Test Runs. The status and get commands require the job_id returned by the run command.  <strong>archive</strong> <strong>-c</strong><em> command </em><strong>-u</strong><em> uuid/job-id</em><br>
+        <br>
+        <h6 class="code">mu cmd_muapi:archive -c run -u 52add3cf-9040-42ce-b263-8233039931d5</h6>
+      <p>Get the status of the  archive report:</p>
+      <h6><span class="code">mu cmd_muapi:archive -c status -u 1296064526931</span></h6>
+      <p>Download the archive report:
+      </p>
+      <h6><span class="code">mu cmd_muapi:archive -c get -u 1296064526931</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>backup</em></td>
+      <td>Manage system backup files.  <strong>backup</strong> <strong>-c</strong><em> command</em>
+        <p>Generate system backup:</p>
+        <h6 class="code">mu cmd_muapi:backup -c run</h6>
+        <p>Get the status of the  backup job:</p>
+        <h6><span class="code">mu cmd_muapi:backup -c status</span></h6>
+        <p>Download the backup file (requires a name): <strong>backup</strong> <strong>-c</strong> <strong>get -n</strong><em> filename</em></p>
+      <h6><span class="code">mu cmd_muapi:backup -c get -n my-backup</span></h6>
+      <p>The Mu system automatically appends the .dat extension to all backup files.</p></td>
+    </tr>
+    <tr>
+      <td><em>capture</em></td>
+      <td>Manage  pcaps recorded by the Mu system. The <strong>status</strong> and <strong>get</strong> commands require the job-id returned by the run command: <strong>capture</strong> <strong>-c</strong><em> command </em><strong>-p</strong><em> port-number</em><strong> -u</strong><em> job-id</em> 
+        <p>Start recording packets (this command returns the job-id):</p>
+        <h6 class="code">mu cmd_muapi:capture -c run -p a1</h6>
+        <p>Get the status of the  packet recording job:</p>
+        <h6><span class="code">mu cmd_muapi:capture -c status -p a1 -u 1296064526931</span></h6>
+        <p>Download the recorded packet capture: </p>
+      <h6><span class="code">mu cmd_muapi:capture -c get -p a1 -u 1296064526931</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>delete</em></td>
+      <td>Delete the specified Test Run or template: <strong>delete -u</strong> <em>uuid</em>
+      <h6 class="code">mu cmd_muapi:delete -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    <tr>
+      <td><em>export_by_name</em></td>
+      <td>Export the specified template: <strong>export_by_name -n</strong> <em>name</em>
+      <strong>-t</strong> <em>type</em>
+      <h6 class="code">mu cmd_muapi:export_by_name -n my_monitor -t monitor</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_faults</em></td>
+      <td>Get a list of faults (xml format) from a Test Run: <strong>get_faults -u</strong> <em>uuid</em> <strong>-v</strong>
+        <h6 class="code">mu cmd_muapi:get_faults -u 52add3cf-9040-42ce-b263-8233039931d5  -v</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_name</em></td>
+      <td>Get details for the specified Test Run or template: <strong>get_name -u</strong> <em>uuid</em>
+<h6><span class="code">mu cmd_muapi:get_name -u 52add3cf-9040-42ce-b263-8233039931d5</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>list</em></td>
+      <td>&nbsp;Get a list of templates by type: <strong>list -t</strong> <em>template-type</em>        <h6 class="code">mu cmd_muapi:list -t monitor</h6></td>
+    </tr>
+    <tr>
+      <td><em>list_by_status</em></td>
+      <td>Get a list of Test Runs by status: <strong>list_by_status -s</strong><em> status</em>
+        <h6 class="code">mu cmd_muapi:list_by_status -s finished</h6></td>
+    </tr>
+    <tr>
+      <td><em>list_type</em></td>
+      <td>Get a list of all template types: <strong>list_types</strong><em></em>
+        <h6 class="code">mu cmd_muapi:list_types</h6></td>
+    </tr>
+    <tr>
+      <td><em>pause</em></td>
+      <td>Pause a Test Run: <strong>pause -u</strong> <em>uuid</em>
+        <h6 class="code">mu cmd_muapi:pause -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    <tr>
+      <td><em>resume</em></td>
+      <td>Resume a Test Run: <strong>resume -u</strong> <em>uuid</em> 
+        <h6 class="code">mu cmd_muapi:pause -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    <tr>
+      <td><em>run</em></td>
+      <td>Start a Test Run (to rename, use the -b argument): <strong>run -u</strong> <em>uuid</em> [<strong>-b</strong> <em>new-name</em>]
+        <h6 class="code">mu cmd_muapi:run -u 52add3cf-9040-42ce-b263-8233039931d5 -b true</h6></td>
+    </tr>
+    <tr>
+      <td><em>status</em></td>
+      <td>Get the status of a Test Run: <strong>status -u</strong> <em>uuid</em> 
+        <h6 class="code">mu cmd_muapi:status -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    <tr>
+      <td><em>stop</em></td>
+      <td>Stop a Test Run: <strong>stop -u</strong> <em>uuid</em> 
+        <h6 class="code">mu cmd_muapi:stop -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-b</td>
+      <td width="36%"><strong>--boolean</strong> <em>value</em></td>
+      <td>Specify a boolean value (<span class="code">true</span> or <span class="code">false</span>). </td>
+    </tr>
+    <tr>
+      <td>-c</td>
+      <td><strong>--command</strong><em> command</em></td>
+      <td>Specify the command to run (run, get, status, etc.)</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify the user, password, and mgmt IP of the Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-n</td>
+      <td><strong>--name</strong> <em>name</em></td>
+      <td>Specify a Test Run or template name.</td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--port</strong> <em>port-number</em></td>
+      <td>Specify the port number.</td>
+    </tr>
+    <tr>
+      <td>-s</td>
+      <td><strong>--status</strong> <em>status</em></td>
+      <td>Specify the status filter (<span class="code">running</span>, <span class="code">finished</span>, <span class="code">aborted</span> <span class="code">queued</span>, or <span class="code">failed</span>)</td>
+    </tr>
+    <tr>
+      <td>-t</td>
+      <td><strong>--type</strong><em> template-type</em></td>
+      <td>Specify the type of template.</td>
+    </tr>
+    <tr>
+      <td>-u</td>
+      <td><strong>--uuid</strong><em> uuid/job-id</em></td>
+      <td>Specify the UUID of the template to run. For archive, backup, and capture commands, this option takes a job-id value.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_netconfig" id="cmd_runscale6"></a>cmd_netconfig</h2>
+  <p>Use these commands to access the  legacy REST API for configuring Mu interfaces, network hosts, and routes.</p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td>Gets help for all cmd_netconfig commands: <strong>help</strong>
+        <h6 class="code">mu cmd_netconfig:help</h6></td>
+    </tr>
+    <tr>
+      <td><em>clear_hosts</em></td>
+      <td><p>Remove  all network hosts configured in the Mu system: <strong>clear_hosts</strong></p>
+        <h6><span class="code">mu cmd_netconfig:clear_hosts</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>clear_interfaces</em></td>
+      <td><p>Clear   settings for  specified Mu interfaces: <strong>clear_interfaces -i</strong> <em>interfaces</em></p>
+        <h6><span class="code">mu cmd_netconfig:clear_interfaces -i b1,b2</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>clear_routes</em></td>
+      <td><p>Remove all  user-configured routes in the Mu system: <strong>clear_routes</strong></p>
+        <h6><span class="code">mu cmd_netconfig:clear_routes</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>clear_vlans</em></td>
+      <td><p>Remove all vlans for all Mu interfaces: <strong>clear_vlans</strong></p>
+        <h6><span class="code">mu cmd_netconfig:clear_vlans</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>create</em></td>
+      <td><p>Create a network object such as a host or route:  <strong>create -j </strong><em>object</em><strong> -e </strong><em>value</em>        </p>
+        <h6><span class="code">mu cmd_netconfig:create -j {&quot;default&quot;: false,&quot;direct&quot;: false,&quot;dst&quot;: &quot;10.0.0.0&quot;,&quot;dst_pfx_len&quot;: 8,&quot;gateway&quot;: &quot;192.168.100.1&quot;,&quot;interface&quot;: &quot;a1&quot;,&quot;interface_display_name&quot;: &quot;A1&quot;,&quot;metric&quot;: 1,&quot;readonly&quot;: false} -e route</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>delete</em></td>
+      <td><p>Delete a network object such as host or route: <strong>delete </strong><strong>-e </strong><em>value</em>        </p>
+        <h6><span class="code">mu cmd_netconfig:delete  -e Web-Server</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>get</em></td>
+      <td><p>Get details for  a network object: <strong>get </strong><strong>-e </strong><em>value</em></p>
+        <h6><span class="code">mu cmd_netconfig:get -e a1</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>modify</em></td>
+      <td><p>Modify a network object such as a host or route:<strong>modify -j </strong><em>object </em><strong>-e </strong><em>value</em></p>
+        <h6><span class="code">mu cmd_netconfig:modify -j {&quot;mac&quot;: &quot;&quot;,&quot;name&quot;: &quot;Web-Server&quot;,&quot;notes&quot;: &quot;&quot;,&quot;v4_addr&quot;: &quot;192.168.112.205&quot;,&quot;v6_global_addr&quot;: &quot;&quot;,&quot;v6_local_addr&quot;: &quot;&quot;} -e host</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>resolve_hosts</em></td>
+      <td><p>Get IP address for specified network host: <strong>resolve_hosts </strong><em>host</em></p>
+        <h6><span class="code">mu cmd_netconfig:resolve_hosts -n Web-Server</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>restore</em></td>
+      <td><p>Restore from specified file (to overwrite existing object, use the -b argument): <strong>restore -f </strong><em>filepath </em>[<strong>-b</strong> <em>clear-existing</em>]</p>
+        <h6><span class="code">mu cmd_netconfig:restore -f my_muhosts/web-server.json true</span></h6></td>
+    </tr>
+    <tr>
+      <td><em>save</em></td>
+      <td><p>Save changes to the Mu system:  <strong>save</strong></p>
+        <h6><span class="code">mu cmd_netconfig:save</span></h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-b</td>
+      <td width="36%"><strong>--boolean</strong> <em>value</em></td>
+      <td>Specify a boolean value (true or false). </td>
+    </tr>
+    <tr>
+      <td>-e</td>
+      <td><strong>--element</strong><em> value</em></td>
+      <td>Specify a value for the associated command. Example: <span class="code">interfaces</span> or <span class="code">interfaces/a1</span></td>
+    </tr>
+    <tr>
+      <td>-f</td>
+      <td><strong>--filepath</strong><em> filepath</em></td>
+      <td>Specify the path to a file. </td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-i</td>
+      <td><strong>--interfaces</strong> <em>interface-or-host</em></td>
+      <td>Specify Mu interfaces or network hosts as a comma-separated list. Example: <span class="code">b1, web-server</span>. </td>
+    </tr>
+    <tr>
+      <td>-j</td>
+      <td><strong>--json</strong> <em>object</em></td>
+      <td>Specify a json object as a text string.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_ddt" id="cmd_runscale7"></a>cmd_ddt</h2>
+  <p>Use these commands to access the  legacy REST API for Test Sets (Studio Verify). Until import_csv is implemented, the .csv file must exist on the Mu System and include a UUID.</p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>display_results</em></td>
+      <td>Displays results for the current Test Set:
+        <strong>display_results</strong>        <h6 class="code">mu cmd_ddt:display_results</h6></td>
+    </tr>
+    <tr>
+      <td><em>new_session</em></td>
+      <td>Create a new session: <strong>new_session</strong>
+        <h6 class="code">mu cmd_ddt:new_session</h6></td>
+    </tr>
+    <tr>
+      <td><em>load_scenario</em></td>
+      <td>Load the specified Scenario template: 
+      <strong>load_scenario -u </strong><em>uuid</em>      <h6 class="code">mu cmd_ddt:load_scenario -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_hosts</em></td>
+      <td>Get a list of hosts in the Test Bed: 
+      <strong>get_hosts</strong>      <h6 class="code">mu cmd_ddt:get_hosts</h6></td>
+    </tr>
+    <tr>
+      <td><em>set_hosts</em></td>
+      <td>Configure the hosts in the Test Bed: <strong>set_hosts</strong>
+      <strong>-r</strong> <em>role</em> <strong>-n</strong> <em>name</em> <strong>-y</strong> <em>type</em>        <h6 class="code">mu cmd_ddt:set_hosts -r HTTP_Client,HTTP_Server -n a1,Web-Server -y v4</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_channels</em></td>
+      <td>Get a list of channels in the Test Bed: <strong>get_channels</strong>
+        <h6 class="code">mu cmd_ddt:get_channels</h6></td>
+    </tr>
+    <tr>
+      <td><em>set_channels</em></td>
+      <td>Configure the channels in the Test Bed: <strong>set_channels</strong> <strong>-r</strong> <em>role</em> <strong>-n</strong> <em>name</em>
+        <h6 class="code">mu cmd_ddt:set_channels -r SSH_Channel -n Web-Server</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_options</em></td>
+      <td>Get a list of options in the Test Set: <strong>get_options</strong>
+        <h6 class="code">mu cmd_ddt:get_options</h6></td>
+    </tr>
+    <tr>
+      <td><em>set_options</em></td>
+      <td>Configure the option values for the Test Set: <strong>set_options</strong> <strong>-n</strong> <em>name</em> <strong>-p</strong> <em>value</em>
+        <h6 class="code">mu cmd_ddt:set_options -n username -p jsmith</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_sessions</em></td>
+      <td>Get a list of all sessions: <strong>get_sessions</strong>
+        <h6 class="code">mu cmd_ddt:get_sessions</h6></td>
+    </tr>
+    <tr>
+      <td><em>setup_test</em></td>
+      <td>Setup the  Test Bed, reserving the Mu interfaces:
+        <strong>setup_test</strong>        <h6 class="code">mu cmd_ddt:setup_test</h6></td>
+    </tr>
+    <tr>
+      <td><em>run</em></td>
+      <td>Run a Test Set: <strong>run</strong>
+        <h6 class="code">mu cmd_ddt:run</h6></td>
+    </tr>
+    <tr>
+      <td><em>run_testset</em></td>
+      <td>Run the specified Test Set: <strong>run_testset -u</strong> <em>uuid</em>        <h6 class="code">mu cmd_ddt:run_testset -u 04aa248a-0b9b-4bf6-97e1-aab691d0acf1</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_testset_results</em></td>
+      <td>Get results for the  current Test Set: <strong>get_testset_results</strong>
+      <h6 class="code">mu cmd_ddt:get_testset_results</h6></td>
+    </tr>
+    <tr>
+      <td><em>get_testset_status</em></td>
+      <td>Get status for the  current Test Set: <strong>get_testset_status</strong>
+        <h6 class="code">mu cmd_ddt:get_testset_status</h6></td>
+    </tr>
+    <tr>
+      <td><em>teardown_test</em></td>
+      <td>Unsets the  Test Bed selections, releasing the Mu interfaces: <strong>teardown_test</strong>
+      <h6 class="code">mu cmd_ddt:teardown_test</h6></td>
+    </tr>
+    <tr>
+      <td><em>close_session</em></td>
+      <td>Closes the current  session: <strong>close_session</strong>
+        <h6 class="code">mu cmd_ddt:close_session</h6></td>
+    </tr>
+    <tr>
+      <td><em>close_all_sessions</em></td>
+      <td>Closes all existing sessions: <strong>close_all_sessions</strong>
+        <h6 class="code">mu cmd_ddt:close_all_sessions</h6></td>
+    </tr>
+    tr>
+      <td><em>csv_export</em></td>
+      <td>Exports a Test Set from the Mu system to a. csv file: <strong>csv_export</strong>
+        <strong>-u</strong> <em>uuid</em>        <h6 class="code">mu cmd_ddt:csv_export -u 52add3cf-9040-42ce-b263-8233039931d5</h6></td>
+    </tr>
+    tr>
+      <td><em>csv_import</em></td>
+      <td>Imports a .csv file to create a Test Set on the Mu system: <strong>csv_import</strong>
+        <strong>-t</strong><em> filename.csv </em><strong>-f</strong> <em>filename</em><h6 class="code">mu cmd_ddt:csv_import -t my-testset.csv -f my-testset-template</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="60%">Description</th>
+    </tr>
+    <tr>
+      <td width="4%">-f</td>
+      <td width="36%"><strong>--filename</strong><em> filename</em></td>
+      <td>Specify the template name for saving an imported Test Set.</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-n</td>
+      <td><strong>--names</strong> <em>name-array</em></td>
+      <td>Specify host  names or channel names  in a comma-separated array. Example: <span class="code">a1,Web-Serve</span>r</td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--option_values</strong> <em>value-array</em></td>
+      <td>Specify values for Test Set options in a comma-separated array. Example: <span class="code">bob,jane,mary,tom</span></td>
+    </tr>
+    <tr>
+      <td>-r</td>
+      <td><strong>--roles</strong> <em>role-array</em></td>
+      <td>Specify host  roles  in a comma-separated array. Example: <span class="code">HTTP_Client,HTTP_Server</span></td>
+    </tr>
+    <tr>
+      <td>-t</td>
+      <td><strong>--testset</strong> <em>filename.csv</em></td>
+      <td>Specify the name of the .csv file to import. </td>
+    </tr>
+    <tr>
+      <td>-u</td>
+      <td><strong>--uuid</strong> <em>uuid</em></td>
+      <td>Specify the UUID of the Scenario or Test Set.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+    <tr>
+      <td>-y</td>
+      <td><strong>--type</strong> <em>type</em></td>
+      <td>Specify network layer (v4, v6, l2) for all hosts in the Test Bed. Example: <span class="code">v4</span></td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_scale" id="cmd_runscale8"></a>cmd_scale</h2>
+  <p>Use these commands to access the  legacy REST API for Scale test (Studio Scale). </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>about</em></td>
+      <td>Lists information for the  Scale Player and all active and inactive Scale Engines: <strong>about</strong>
+        <h6 class="code">mu cmd_scale:about</h6></td>
+    </tr>
+    <tr>
+      <td><em>configure</em></td>
+      <td>Configure any element of the scale json object : <strong>configure -p </strong><em>parameter</em><strong> -pv </strong><em>value
+      </em>
+        <h6 class="code">mu cmd_scale:configure -p json_element -pv json_element_value</h6></td>
+    </tr>
+    <tr>
+      <td><em>data</em></td>
+      <td>Gets chart data for the Scale test: <strong>data -w</strong> <em>view</em> <strong> -z</strong> <em>zoom</em> <strong>-ps</strong> <em>position</em> <strong>-b</strong> <em>bot_id</em>        <h6 class="code">mu cmd_scale:data -w TIMELINE  -z 1 -ps 0 -b bots_10.10.6.200:1</h6></td>
+    </tr>
+    <tr>
+      <td><em>delete_scale_engine </em></td>
+      <td>Delete the specified Scale Engine:<strong>delete_scale_engine -b</strong> <em>bot_id</em>        <h6 class="code">mu cmd_scale:delete_scale_engine -b bots_10.10.6.200:1</h6></td>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td>Gets help for all cmd_scale commands: <strong>help</strong>
+        <h6 class="code">mu cmd_scale:help</h6></td>
+    </tr>
+    <tr>
+      <td><em>list</em></td>
+      <td>Returns the current Scale Player's UUID: <strong>list</strong>
+<h6 class="code">mu cmd_scale:list</h6></td>
+    </tr>
+    <tr>
+      <td><em>pattern</em></td>
+      <td>Gets the pattern  for the Scale test: <strong>pattern </strong><strong>-z</strong> <em>zoom</em> <strong>-ps</strong> <em>position</em>
+        <h6 class="code">mu cmd_scale:pattern  -z 1 -ps 0</h6></td>
+    </tr>
+    <tr>
+      <td><em>pcap</em></td>
+      <td>Gets a pcap from a specific Scale Engine: <strong>pcap </strong> <strong>-b</strong> <em>bot_id</em> <strong>-f</strong> <em>filename</em>        <h6 class="code">mu cmd_scale:pcap  -b bots_10.10.6.200:1 -f bot_1_pcap</h6></td>
+    </tr>
+    <tr>
+      <td><em>release</em></td>
+      <td>Release the  Scale Player:
+      <strong>release</strong>        <h6 class="code">mu cmd_scale:release</h6></td>
+    </tr>
+    <tr>
+      <td><em>release_scale_engine </em></td>
+      <td>Releases the specified Scale Engine:<strong>release_scale_engine -b</strong> <em>bot_id</em>
+        <h6 class="code">mu cmd_scale:release_scale_engine -b bots_10.10.6.200:1</h6></td>
+    </tr>
+    <tr>
+      <td><em>reserve_scale_engine </em></td>
+      <td>Reserves the specified Scale Engine:<strong>reserve_scale_engine -b</strong> <em>bot_id</em>
+        <h6 class="code">mu cmd_scale:reserve_scale_engine -b bots_10.10.6.200:1</h6></td>
+    </tr>
+    <tr>
+      <td><em>session</em></td>
+      <td>Create a new   Scale Player session: 
+      <strong>session</strong>      <h6 class="code">mu cmd_scale:session</h6></td>
+    </tr>
+    <tr>
+      <td><em>start</em></td>
+      <td>Start  the Scale test: <strong>start</strong>
+      <strong>-c</strong> <em>scale-test</em> <strong>-m</strong> <em>user:pass@mu-ip</em>        <h6 class="code">mu cmd_scale:start -c scale.json -m admin:admin@10.10.2.2</h6></td>
+    </tr>
+    <tr>
+      <td><em>status</em></td>
+      <td>Gets information about the currently running Scale test: <strong>status</strong>
+        <h6 class="code">mu cmd_scale:status</h6></td>
+    </tr>
+    <tr>
+      <td><em>statuses</em></td>
+      <td>Gets the status of all active and inactive Scale engines: <strong>statuses</strong>
+        <h6 class="code">mu cmd_scale:statuses</h6></td>
+    </tr>
+    <tr>
+      <td><em>stop</em></td>
+      <td>Stops  the Scale test: <strong>stop</strong>
+        <h6 class="code">mu cmd_scale:stop</h6></td>
+    </tr>
+    <tr>
+      <td><em>update</em></td>
+      <td>Update the pattern dynamically (while the Scale test is running):
+      <strong>update -p </strong><em>parameter</em> <strong>-pv</strong> <em>parameter-value</em>      <h6 class="code">mu cmd_scale:update -p delay -pv 250 -p volume -pv 100000</h6></td>
+    </tr>
+    <tr>
+      <td><em>verify</em></td>
+      <td>Verifies a Scale test: <strong>verify</strong>
+<h6 class="code">mu cmd_scale:verify</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="57%">Description</th>
+    </tr>
+    <tr>
+      <td>-b</td>
+      <td><strong>--bot-id</strong> <em>scale-engine-id</em></td>
+      <td>Specify a Scale Engine using its bot-id value.</td>
+    </tr>
+    <tr>
+      <td>-c</td>
+      <td><strong>--config-file</strong> <em>json-filename</em></td>
+      <td>Specify a .json file that contains the configuration data.</td>
+    </tr>
+    <tr>
+      <td width="5%">-f</td>
+      <td width="38%"><strong>--filename</strong><em> pcap-filename</em></td>
+      <td>Specify a name for the .pcap file.</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td><strong>--params</strong><em> parameters</em></td>
+      <td>Specify parameters for initial configuration or for update. Supports <span class="code">delay</span> and <span class="code">volume</span> parameters.</td>
+    </tr>
+    <tr>
+      <td>-ps</td>
+      <td><strong>--view_position</strong><em> value</em></td>
+      <td>Specify the position in the timeline view for which to return data. At this time, only position <span class="code">0</span> is supported.</td>
+    </tr>
+    <tr>
+      <td>-pv</td>
+      <td><strong>--param_value</strong> <em>value</em></td>
+      <td>Specify a value for a parameter.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+    <tr>
+      <td>-w</td>
+      <td><strong>--view</strong> <em>view</em></td>
+      <td>Specify the view (<span class="code">RUNTIME</span> or <span class="code">CALLGRAPH</span>) for which to return data.</td>
+    </tr>
+    <tr>
+      <td>-z</td>
+      <td><strong>--zoom</strong> <em>zoom-level</em></td>
+      <td>Specify the zoom level (<span class="code">0</span>, <span class="code">.5</span>, or <span class="code">1</span>) in the timeline view for which to return data. 1 returns data for 100% of the time range, 0.5 returns data for 50% of the time range, and 0 returns only the last minute of data. </td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_homepage" id="cmd_runscale9"></a>cmd_homepage</h2>
+  <p>Use these commands to access  the Mu UI homepage. </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>all</em></td>
+      <td>Gets the complete set of information displayed on the Mu home page: <strong>all</strong>
+        <h6 class="code">mu cmd_homepage:all</h6></td>
+    </tr>
+    <tr>
+      <td><em>help</em></td>
+      <td>Gets help for all cmd_homepage commands:
+      <strong>help</strong>        <h6 class="code">mu cmd_homepage:help</h6></td>
+    </tr>
+    <tr>
+      <td><em>latest_test</em></td>
+      <td>Gets an array of the latest test results:
+      <strong>latest_test</strong>        <h6 class="code">mu cmd_homepage:latest_test</h6></td>
+    </tr>
+    <tr>
+      <td><em>queue_test</em></td>
+      <td>Gets an array of tests in the Test Queue: <strong>queue_test</strong>
+        <h6 class="code">mu cmd_homepage:queue_test</h6></td>
+    </tr>
+    <tr>
+      <td><em>recent</em></td>
+      <td>Gets the "What's New" section from the Mu homepage:
+      <strong>recent</strong>        <h6 class="code">mu cmd_homepage:recent</h6></td>
+    </tr>
+    <tr>
+      <td><em>status</em></td>
+      <td>Gets system status for licenses, backup, and updates: <strong>status</strong>
+        <h6 class="code">mu cmd_homepage:status</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="57%">Description</th>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+  <h2><a name="cmd_system" id="cmd_runscale10"></a>cmd_system</h2>
+  <p>Use these commands to restart system services or to get status details for the Mu system. </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>restart</em></td>
+      <td>Restart the Mu system services (this does not reboot the appliance): 
+        <strong>restart</strong>        <h6 class="code">mu cmd_system:restart</h6></td>
+    </tr>
+    <tr>
+      <td><em>status</em></td>
+      <td>Gets the complete System status page: <strong>status</strong><em></em>
+        <h6 class="code">mu cmd_system:status</h6></td>
+    </tr>
+    <tr>
+      <td><em>status2</em></td>
+      <td>Gets additional system status information, imncluding hard drive, model and serial data: <strong>status</strong><em></em>2        <h6 class="code">mu cmd_system:status2</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="57%">Description</th>
+    </tr>
+    <tr>
+      <td width="5%">-h</td>
+      <td width="38%"><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+<h2><a name="cmd_cli" id="cmd_runscale11"></a>cmd_cli</h2>
+  <p>Use these commands to access the Mu CLI. </p>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td><em>cli_help</em></td>
+      <td>Get help for all cmd_cli commands: <strong>cli_help</strong>
+        <h6 class="code">mu cmd_cli:cli_help</h6></td>
+    </tr>
+    <tr>
+      <td><em>cli_history</em></td>
+      <td>Display the command line history for the current session: <strong>cli_help</strong>
+        <h6 class="code">mu cmd_cli:history</h6></td>
+    </tr>
+    <tr>
+      <td><em>ping</em></td>
+      <td>Ping the specified IP address from the Mu system: <strong>ping -a </strong><em>ip-address
+      </em>
+        <h6 class="code">mu cmd_cli:ping -a 10.10.10.1</h6></td>
+    </tr>
+    <tr>
+      <td><em>question</em></td>
+      <td>Show the available CLI commands:
+      <strong>question</strong>        <h6 class="code">mu cmd_cli:question</h6></td>
+    </tr>
+    <tr>
+      <td><em>traceroute</em></td>
+      <td>Get the network route to a  specified IP address from the Mu system: <strong>traceroute -a </strong><em>ip-address </em>
+        <h6 class="code">mu cmd_cli:traceroute -a 10.10.10.1</h6></td>
+    </tr>
+  </table>
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th colspan="2">Options (short &amp; long form)</th>
+      <th width="57%">Description</th>
+    </tr>
+    <tr>
+      <td width="5%">-h</td>
+      <td width="38%"><strong>--help</strong></td>
+      <td>Get help on command line options.</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td><strong>--mu_string</strong> <em>user</em>:<em>password</em>@<em>mu-ip</em></td>
+      <td>Specify a user, password, and mgmt IP of a Mu system. Example: <span class="code">admin:admin@10.9.8.7</span></td>
+    </tr>
+    <tr>
+      <td>-o</td>
+      <td><strong>--output</strong> <em>filename</em></td>
+      <td>Specify the filename to which you want to output logs.</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td><strong>--verbose</strong></td>
+      <td>Set
+        the Logger::DEBUG level.</td>
+    </tr>
+  </table>
+  <p><a href="#top">back to top &uarr;</a></p>
+<p>&nbsp;</p>
+<h3><a name="library-classes" id="features2"></a>Library Classes</h3>
+  <p>API library classes that can be &lsquo;required&rsquo; and used within Ruby scripts
+  like most rubygems.</p>
+  
+  <table border="1" cellpadding="1" cellspacing="1" class=wide>
+    <tr>
+      <th>Command</th>
+      <th>Description &amp; Examples</th>
+    </tr>
+    <tr>
+      <td valign=top><p><a name=muapi>muapi</a></p></td>
+      <td valign=top><p>require 'rubygems'</p>
+        <p>require 'mu'</p>
+        <p>api = Mu::Muapi.new(&ldquo;10.10.2.2&rdquo;, &ldquo;admin&rdquo;, &ldquo;admin&rdquo;)</p>
+        <p>$log.level = Logger::INFO</p>
+        <p>Example: <span class="code">api.list_by_status(&quot;running&quot;)</span></p></td>
+    </tr>
+    <tr>
+      <td valign=top><p><a name=ddt>ddt</a></p></td>
+      <td valign=top><p>require 'rubygems'</p>
+        <p>require 'mu'</p>
+        <p>api = Mu::Ddt.new(&ldquo;10.10.2.2&rdquo;, &ldquo;admin&rdquo;, &ldquo;admin&rdquo;)</p>
+        <p>$log.level = Logger::INFO</p>
+        <p>Example: <span class="code">api.new_session</span></p></td>
+    </tr>
+    <tr>
+      <td valign=top><p><a name=scale>scale</a></p></td>
+      <td valign=top><p>require 'rubygems'</p>
+        <p>require 'mu'</p>
+        <p>api = Mu::Scale.new(&ldquo;10.10.2.2&rdquo;, &ldquo;admin&rdquo;, &ldquo;admin&rdquo;)</p>
+        <p>$log.level = Logger::INFO</p>
+        <p>Examples: </p>
+        <h6 class="code">api.configure -p musl -pv &lt;scenario.msl&gt;</h6>
+        <h6 class="code">api.configure -p csv -pv &lt;testset.csv&gt;</h6>
+        <h6 class="code">api.configure -p pattern -pv &lt;pattern.json&gt;</h6>
+        <h6 class="code">api.start</h6>
+<h6 class="code">api.status</h6>
+        <h6 class="code">api.stop</h6>
+        <h6 class="code">api.release</h6></td>
+    </tr>
+    <tr>
+      <td valign=top><a name=netconfig>netconfig</a></td>
+      <td valign=top><p>require 'rubygems'</p>
+        <p>require 'mu'</p>
+        <p>api = Mu::Netconfig.new(&ldquo;10.10.2.2&rdquo;, &ldquo;admin&rdquo;, &ldquo;admin&rdquo;)</p>
+        <p>$log.level = Logger::INFO</p>
+        <p>Example: <span class="code">api.get(&quot;hosts&quot;)</span></p></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p><a href="#top">back to top &uarr;</a></p>
+<hr />  
+  <h2>Mu
+    Dynamics Information</h2>
+<p>Mu
+  Dynamics Customer Care is available 9am to 5pm PST, Monday to Friday at the
+  toll-free support line at 1-866-276-4640; international customers can
+  also use 1-408-329-6330. For online communication, visit the Mu
+  Dynamics Customer Care Center at <a
+ title="https://forms.netsuite.com/app/crm/marketing/campaignlistener.nl?__lstr=__cl&amp;c=590487&amp;__r=-2147483648&amp;__h=895f7f7a297d1138ee45&amp;url=https://owa.musecurity.com/exchweb/bin/redir.asp?URL=https://forms.netsuite.com/app/crm/marketing/campaignlistener.nl?__lstr=__cl%26c=590487%26__r=-2147483648%26__h=895f7f7a297d1138ee45%26url=http://www.mudynamics.com/support/overview.html"
+ href="https://forms.netsuite.com/app/crm/marketing/campaignlistener.nl?__lstr=__cl&amp;c=590487&amp;__r=-2147483648&amp;__h=895f7f7a297d1138ee45&amp;url=https://owa.musecurity.com/exchweb/bin/redir.asp?URL=https://forms.netsuite.com/app/crm/marketing/campaignlistener.nl?__lstr=__cl%26c=590487%26__r=-2147483648%26__h=895f7f7a297d1138ee45%26url=http://www.mudynamics.com/support/overview.html"
+ target="_blank">http://www.mudynamics.com/support/overview.html</a>. </p>
+<p>In addition to Mu UI Help and the Mu
+    product documentation, you can also get continuous updates on Mu system
+  capabilities using the following resources: </p>
+<table width="640" border="1" cellpadding="1" cellspacing="1" class="wide">
+  <tr>
+    <th width="16%" scope="row">Corporate</th>
+    <td width="84%"><a href="http://www.mudynamics.com" target="_blank">Home </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html" target="_blank"> Press </a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://www.mudynamics.com/news/events.html" target="_blank">Webinars,
+        Seminars, &amp; Podcasts </a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://www.mudynamics.com/products/demo.html" target="_blank"> Product </a><a href="http://www.mudynamics.com/products/demo.html">Demos</a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://www.mudynamics.com/news/rss.html" target="_blank"> RSS
+        Feed</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Social</th>
+    <td><a href="http://bit.ly/mu-twitter" target="_blank"> Twitter</a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://bit.ly/mu-on-facebook" target="_blank"> Facebook</a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://bit.ly/mu-youtube" target="_blank"> YouTube</a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://www.mudynamics.com/news/inthenews.html"> </a><a href="http://community.mudynamics.com/main/authorization/signIn?" target="_blank"> Mu
+        Community</a> <a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://bit.ly/pcapr" target="_blank"> Pcapr</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Blogs</th>
+    <td><a href="http://bit.ly/mu-line-blog" target="_blank"> Mu
+        Line</a><a href="http://www.mudynamics.com"> </a>&#8226;<a href="http://bit.ly/mu-labs-blog" target="_blank"> </a><a href="http://bit.ly/mu-labs-blog" target="_blank">Mu
+        Labs </a>(with<a href="http://labs.mudynamics.com/category/research/rss2" target="_blank"> RSS
+        Feed</a>) </td>
+  </tr>
+</table>
+</div>
+  <div id="siteInfo">
+  Copyright
+2011 Mu Dynamics Inc., All Rights Reserved.</div>
+</body>
+</html>

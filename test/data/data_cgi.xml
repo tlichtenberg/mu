@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mu_config version="5.0">
+    <templates>
+        <scenario name="data_cgi" uuid="ef6fe3eb-4e9f-44b5-a99e-c431d82e4eeb" version="6">
+            <hosts>
+                <host>
+                    <id>host_0</id>
+                    <role>192.168.40.217</role>
+                    <type>v4</type>
+                </host>
+                <host>
+                    <id>host_1</id>
+                    <role>192.168.40.9</role>
+                    <type>v4</type>
+                </host>
+            </hosts>
+            <options>
+                <string>
+                    <description>data length</description>
+                    <id>data_length</id>
+                    <name>data_length</name>
+                    <value>3</value>
+                </string>
+                <string>
+                    <description>data</description>
+                    <id>data</id>
+                    <name>data</name>
+                    <value>123</value>
+                </string>
+                <string>
+                    <description>data type</description>
+                    <id>data_type</id>
+                    <name>data_type</name>
+                    <value>numbers</value>
+                </string>
+                <string>
+                    <description>url</description>
+                    <id>url</id>
+                    <name>url</name>
+                    <value>/whats_my_data.cgi?data</value>
+                </string>
+                <string>
+                    <description>http_port</description>
+                    <id>http_port</id>
+                    <name>http_port</name>
+                    <value>80</value>
+                </string>
+            </options>
+            <steps>
+                <tcp>
+                    <name>HTTP_80</name>
+                    <dst>
+                        <host>
+                            <id>host_1</id>
+                        </host>
+                    </dst>
+                    <src>
+                        <host>
+                            <id>host_0</id>
+                        </host>
+                    </src>
+                    <timeout>2500</timeout>
+                    <dst_port>
+                        <option>
+                            <id>http_port</id>
+                        </option>
+                    </dst_port>
+                    <ip_version>v4</ip_version>
+                    <type>client</type>
+                </tcp>
+                <tcp_client_send>
+                    <description>GET /whats_my_data.cgi?data=123 HTTP/1.1</description>
+                    <name>HTTP_GET_Client_Send</name>
+                    <transport>HTTP_80</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="GET /whats_my_data.cgi?data=123 HTTP/1.1\r\n" name="get">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field label="Request Method: GET" name="request_method">
+                                            <value>
+                                                <string>
+                                                    <value>GET</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <dsv>
+                                            <delimiter>=</delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <option>
+                                                            <id>url</id>
+                                                        </option>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <option>
+                                                            <id>data</id>
+                                                        </option>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>HTTP/1.1</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <string_field label="Host: dell-9\r\n" name="host">
+                            <value>
+                                <string>
+                                    <value>Host: dell-9\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3\r\n" name="user_agent">
+                            <value>
+                                <string>
+                                    <value>User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n" name="accept">
+                            <value>
+                                <string>
+                                    <value>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Accept-Language: en-us,en;q=0.5\r\n" name="accept_language">
+                            <value>
+                                <string>
+                                    <value>Accept-Language: en-us,en;q=0.5\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Accept-Encoding: gzip,deflate\r\n" name="accept_encoding">
+                            <value>
+                                <string>
+                                    <value>Accept-Encoding: gzip,deflate\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n" name="accept_charset">
+                            <value>
+                                <string>
+                                    <value>Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Keep-Alive: 300\r\n" name="keep_alive">
+                            <value>
+                                <string>
+                                    <value>Keep-Alive: 300\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Connection: keep-alive\r\n" name="connection">
+                            <value>
+                                <string>
+                                    <value>Connection: keep-alive\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Cache-Control: max-age=0\r\n" name="cache_control">
+                            <value>
+                                <string>
+                                    <value>Cache-Control: max-age=0\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="\r\n">
+                            <value>
+                                <string>
+                                    <value>\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>GET /whats_my_data.cgi?data=123 HTTP/1.1</description>
+                    <name>HTTP_GET_Server_Receive</name>
+                    <transport>HTTP_80</transport>
+                    <assertions/>
+                    <send_action>HTTP_GET_Client_Send</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <tcp_server_send>
+                    <description>HTTP/1.1 200 OK  (text/html)</description>
+                    <name>HTTP_Server_Send</name>
+                    <transport>HTTP_80</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <string_field label="HTTP/1.1 200 OK\r\n" name="http">
+                            <value>
+                                <string>
+                                    <value>HTTP/1.1 200 OK\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Date: Wed, 16 Sep 2009 00:09:17 GMT\r\n" name="date">
+                            <value>
+                                <string>
+                                    <value>Date: Wed, 16 Sep 2009 00:09:17 GMT\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Server: Apache/2.0.52 (CentOS)\r\n" name="server">
+                            <value>
+                                <string>
+                                    <value>Server: Apache/2.0.52 (CentOS)\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Content-Length: 243\r\n" name="content_length_header">
+                            <value>
+                                <string>
+                                    <value>Content-Length: 243\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Connection: close\r\n" name="connection">
+                            <value>
+                                <string>
+                                    <value>Connection: close\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="Content-Type: text/html; charset=UTF-8\r\n" name="content_type">
+                            <value>
+                                <string>
+                                    <value>Content-Type: text/html; charset=UTF-8\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field label="\r\n">
+                            <value>
+                                <string>
+                                    <value>\r\n</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field>
+                            <value>
+                                <string>
+                                    <value>&lt;</value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field>
+                            <value>
+                                <string>
+                                    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;What's My Data?&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&lt;H1&gt;Data has been analyzed&lt;/H1&gt;&lt;P&gt;Input: 123&lt;/P&gt;&lt;P&gt;Length: 3&lt;/P&gt;&lt;P&gt;Type: numbers&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</value>
+                                </string>
+                            </value>
+                        </string_field>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>HTTP/1.1 200 OK  (text/html)</description>
+                    <name>HTTP_Client_Receive</name>
+                    <transport>HTTP_80</transport>
+                    <assertions>
+                        <compare>
+                            <description>data type check</description>
+                            <status>passed</status>
+                            <value2>
+                                <regex>
+                                    <decode>string</decode>
+                                    <ignore_case>false</ignore_case>
+                                    <index>1</index>
+                                    <multiline>false</multiline>
+                                    <pattern>Type: (.+?)&lt;</pattern>
+                                </regex>
+                            </value2>
+                            <value1>
+                                <option>
+                                    <id>data_type</id>
+                                </option>
+                            </value1>
+                            <operation>equal</operation>
+                        </compare>
+                        <compare>
+                            <description>data length check</description>
+                            <status>passed</status>
+                            <value2>
+                                <regex>
+                                    <decode>string</decode>
+                                    <ignore_case>false</ignore_case>
+                                    <index>1</index>
+                                    <multiline>false</multiline>
+                                    <pattern>Length: (.+?)&lt;</pattern>
+                                </regex>
+                            </value2>
+                            <value1>
+                                <option>
+                                    <id>data_length</id>
+                                </option>
+                            </value1>
+                            <operation>less_than_or_equal</operation>
+                        </compare>
+                    </assertions>
+                    <send_action>HTTP_Server_Send</send_action>
+                    <variables/>
+                </tcp_client_receive>
+            </steps>
+            <variables/>
+        </scenario>
+    </templates>
+</mu_config>

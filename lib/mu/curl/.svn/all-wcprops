@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/kayenna/!svn/ver/42081/trunk/qa/MuGem/lib/mu/curl
+END
+verify.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/kayenna/!svn/ver/42081/trunk/qa/MuGem/lib/mu/curl/verify.rb
+END
+error.rb
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/kayenna/!svn/ver/41716/trunk/qa/MuGem/lib/mu/curl/error.rb
+END

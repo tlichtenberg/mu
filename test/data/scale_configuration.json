@@ -1,0 +1,25 @@
+{
+  "musl": "scenario(name: \"data_cgi\") {\n    hosts {\n        # a2/192.168.40.217|\n        &host_0 = host(type: v4)\n        # 192.168.40.9|\n        &host_1 = host(type: v4)\n    }\n\n    options {\n        # data_length|data length\n        $data_length = \"3\"\n        # data|data\n        $data = \"123\"\n        # data_type|data type\n        $data_type = \"numbers\"\n        # url|url\n        $url = \"/whats_my_data.cgi?data\"\n        # http_port|http_port\n        $http_port = \"80\"\n    }\n\n    steps {\n        HTTP_80 = tcp(timeout: 10000, src: &host_0, dst: &host_1, dst_port: $http_port)\n\n        # GET /whats_my_data.cgi?data=123 HTTP/1.1\n        HTTP_GET_Client_Send = HTTP_80.client_send {\n            # get|GET /whats_my_data.cgi?data=123 HTTP/1.1\\r\\n\n            line [\n                dsv(delimiter: \" \") [\n                    # request_method|Request Method: GET\n                    \"GET\"\n                    dsv(delimiter: \"=\") [\n                        $url\n                        $data\n                    ]\n                    \"HTTP/1.1\"\n                ]\n            ]\n            # host|Host: dell-9\\r\\n\n            \"Host: dell-9\\r\\n\"\n            # user_agent|User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3\\r\\n\n            \"User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3\\r\\n\"\n            # accept|Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\\r\\n\n            \"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\\r\\n\"\n            # accept_language|Accept-Language: en-us,en;q=0.5\\r\\n\n            \"Accept-Language: en-us,en;q=0.5\\r\\n\"\n            # accept_encoding|Accept-Encoding: gzip,deflate\\r\\n\n            \"Accept-Encoding: gzip,deflate\\r\\n\"\n            # accept_charset|Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\\r\\n\n            \"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\\r\\n\"\n            # keep_alive|Keep-Alive: 300\\r\\n\n            \"Keep-Alive: 300\\r\\n\"\n            # connection|Connection: keep-alive\\r\\n\n            \"Connection: keep-alive\\r\\n\"\n            # cache_control|Cache-Control: max-age=0\\r\\n\n            \"Cache-Control: max-age=0\\r\\n\"\n            # |\\r\\n\n            \"\\r\\n\"\n        }\n\n        # GET /whats_my_data.cgi?data=123 HTTP/1.1\n        HTTP_GET_Server_Receive = HTTP_GET_Client_Send.server_receive\n\n        # HTTP/1.1 200 OK  (text/html)\n        HTTP_Server_Send = HTTP_80.server_send {\n            # http|HTTP/1.1 200 OK\\r\\n\n            \"HTTP/1.1 200 OK\\r\\n\"\n            # date|Date: Wed, 16 Sep 2009 00:09:17 GMT\\r\\n\n            \"Date: Wed, 16 Sep 2009 00:09:17 GMT\\r\\n\"\n            # server|Server: Apache/2.0.52 (CentOS)\\r\\n\n            \"Server: Apache/2.0.52 (CentOS)\\r\\n\"\n            # content_length_header|Content-Length: 243\\r\\n\n            \"Content-Length: 243\\r\\n\"\n            # connection|Connection: close\\r\\n\n            \"Connection: close\\r\\n\"\n            # content_type|Content-Type: text/html; charset=UTF-8\\r\\n\n            \"Content-Type: text/html; charset=UTF-8\\r\\n\"\n            # |\\r\\n\n            \"\\r\\n\"\n            \"<\"\n            \"<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01//EN\\\" \\\"http://www.w3.org/TR/html4/strict.dtd\\\"><HTML><HEAD><TITLE>What\\'s My Data?</TITLE></HEAD><BODY><H1>Data has been analyzed</H1><P>Input: 123</P><P>Length: 3</P><P>Type: numbers</P></BODY></HTML>\"\n        }\n\n        # HTTP/1.1 200 OK  (text/html)\n        HTTP_Client_Receive = HTTP_Server_Send.client_receive {\n            assertions {\n                # data type check\n                string(/Type: (.+?)</:1) == $data_type\n                # data length check\n                string(/Length: (.+?)</:1) >= $data_length\n            }\n        }\n    }\n}",
+  "holdConcurrency": true,
+  "vectorAddressPairing": false,
+  "delay": 0,
+  "timeout": 5000,
+  "limitConcurrency": false,
+  "hosts": {
+    "host_0": "b1/*,10000,1",
+    "host_1": "b2/*"
+  },
+  "pattern": {
+    "iterations": 1,
+    "intervals": [
+      {
+        "duration": 10,
+        "iterations": 1,
+        "end": 100,
+        "start": 1
+      }
+    ]
+  },
+  "csv": "",
+  "volume": 1
+}

@@ -1,0 +1,156 @@
+{
+  "group": "active",
+  "label": "all",
+  "_rev": "13-f2c5b2688dd1705f518bd3c8a239e2b0",
+  "timestamp": 1296501957,
+  "_id": "bots_all",
+  "type": "status",
+  "filename": "/Users/tomlichtenberg/svn/kayenna/trunk/qa/MuGem/test/data/data_cgi.msl",
+  "bot_id": "bots_all",
+  "status": {
+    "okay": true,
+    "running": false,
+    "statistics": {
+      "scenarios": [
+        {
+          "steps": [
+            {
+              "duration": {
+                "max": 0.011266,
+                "avg": 0.004537,
+                "min": 0.001251
+              },
+              "errors": 0,
+              "executed": 35822,
+              "skipped": 0,
+              "timeouts": 0
+            },
+            {
+              "duration": {
+                "max": 0.008164,
+                "avg": 0.001936,
+                "min": 0.0
+              },
+              "errors": 0,
+              "executed": 35817,
+              "skipped": 0,
+              "timeouts": 0
+            },
+            {
+              "duration": {
+                "max": 0.00338,
+                "avg": 0.001442,
+                "min": 0.0
+              },
+              "errors": 0,
+              "executed": 35795,
+              "skipped": 0,
+              "timeouts": 0
+            },
+            {
+              "duration": {
+                "max": 0.008164,
+                "avg": 0.001532,
+                "min": 0.0
+              },
+              "errors": 0,
+              "executed": 35795,
+              "skipped": 0,
+              "timeouts": 0
+            },
+            {
+              "duration": {
+                "max": 0.00338,
+                "avg": 0.001588,
+                "min": 0.0
+              },
+              "errors": 0,
+              "executed": 35791,
+              "skipped": 0,
+              "timeouts": 0
+            }
+          ],
+          "name": 0,
+          "duration": {
+            "max": 0.01701,
+            "avg": 0.011036,
+            "min": 0.005934
+          },
+          "instances": {
+            "errors": 0,
+            "executed": 35791,
+            "total": 35791,
+            "timeouts": 0
+          },
+          "asserts": [
+            {
+              "failed": 0,
+              "errors": 0,
+              "executed": 35791
+            },
+            {
+              "failed": 0,
+              "errors": 0,
+              "executed": 35791
+            }
+          ],
+          "server": {
+            "tx": {
+              "bytes": 14747540.0,
+              "msgs": 35795
+            },
+            "rx": {
+              "bytes": 14998105.0,
+              "msgs": 35795
+            }
+          },
+          "volume": 0,
+          "client": {
+            "tx": {
+              "bytes": 15007323.0,
+              "msgs": 35817
+            },
+            "rx": {
+              "bytes": 14745892.0,
+              "msgs": 35791
+            }
+          }
+        }
+      ],
+      "summary": {
+        "duration": 10.750123,
+        "instances": {
+          "errors": 0,
+          "executed": 35791,
+          "total": 35791,
+          "timeouts": 0
+        },
+        "asserts": {
+          "failed": 0,
+          "errors": 0,
+          "executed": 71582
+        },
+        "server": {
+          "tx": {
+            "bytes": 14747540.0,
+            "msgs": 35795
+          },
+          "rx": {
+            "bytes": 14998105.0,
+            "msgs": 35795
+          }
+        },
+        "client": {
+          "tx": {
+            "bytes": 15007323.0,
+            "msgs": 35817
+          },
+          "rx": {
+            "bytes": 14745892.0,
+            "msgs": 35791
+          }
+        }
+      }
+    }
+  }
+}

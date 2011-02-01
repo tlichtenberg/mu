@@ -1,0 +1,1643 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mu_config version="4.0">
+    <templates>
+        <scenario name="ftp_with_channel" version="4.5.2.r33816" uuid="379a4cf8-8fe7-4d2d-8f6b-b8c6b71557b4">
+            <options>
+                <string>
+                    <description>string</description>
+                    <id>channel_command</id>
+                    <name>channel command</name>
+                    <value>ifconfig</value>
+                </string>
+            </options>
+            <hosts>
+                 <host>
+                    <id>host_0</id>
+                    <role>192.168.30.188 (A1.V4)</role>
+                    <type>v4</type>
+                 </host>
+                 <host>
+                    <id>host_1</id>
+                    <role>192.168.30.9 (dell-eth1.V4)</role>
+                    <type>v4</type>
+                 </host>
+                </hosts>
+            <steps>
+                <channel>
+                    <name>channel</name>
+                    <timeout>5000</timeout>
+                </channel>
+                <tcp>
+                    <dst>
+                        <host>
+                            <id>host_1</id>
+                        </host>
+                    </dst>
+                    <src>
+                        <host>
+                            <id>host_0</id>
+                        </host>
+                    </src>
+                    <name>FTP</name>
+                    <dst_port>
+                        <string>
+                            <value>21</value>
+                        </string>
+                    </dst_port>
+                    <ip_version>v4</ip_version>
+                    <type>client</type>
+                </tcp>
+                <tcp_server_send>
+                    <description>Response: 220 FTP server (Version wu-2.6.0(5)) ready.</description>
+                    <name>FTP Response Server Send</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <integer_field label="Response code: Service ready for new user (220)" name="response_code">
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>220</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>FTP</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>server</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <quote>
+                                            <left_quote>(</left_quote>
+                                            <right_quote>)</right_quote>
+                                            <value>
+                                                <dsv>
+                                                    <delimiter> </delimiter>
+                                                    <elements>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>Version</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                        <dsv>
+                                                            <delimiter>.</delimiter>
+                                                            <elements>
+                                                                <string_field>
+                                                                    <value>
+                                                                        <string>
+                                                                            <value>wu-2</value>
+                                                                        </string>
+                                                                    </value>
+                                                                </string_field>
+                                                                <integer_field>
+                                                                    <base>10</base>
+                                                                    <value>
+                                                                        <string>
+                                                                            <value>6</value>
+                                                                        </string>
+                                                                    </value>
+                                                                </integer_field>
+                                                                <struct>
+                                                                    <append_alternates/>
+                                                                    <elements>
+                                                                        <integer_field>
+                                                                            <base>10</base>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>0</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </integer_field>
+                                                                        <quote>
+                                                                            <left_quote>(</left_quote>
+                                                                            <right_quote>)</right_quote>
+                                                                            <value>
+                                                                                <integer_field>
+                                                                                    <base>10</base>
+                                                                                    <value>
+                                                                                        <string>
+                                                                                            <value>5</value>
+                                                                                        </string>
+                                                                                    </value>
+                                                                                </integer_field>
+                                                                            </value>
+                                                                        </quote>
+                                                                    </elements>
+                                                                </struct>
+                                                            </elements>
+                                                        </dsv>
+                                                    </elements>
+                                                </dsv>
+                                            </value>
+                                        </quote>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>ready</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 220 FTP server (Version wu-2.6.0(5)) ready.</description>
+                    <name>FTP Response Client Receive</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send</send_action>
+                    <variables/>
+                </tcp_client_receive>
+                <tcp_client_send>
+                    <description>Request: USER anonymous</description>
+                    <name>FTP Request Client Send</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field label="Request command: USER" name="request_command">
+                                            <value>
+                                                <string>
+                                                    <value>USER</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field label="Request arg: anonymous" name="request_arg">
+                                            <value>
+                                                <string>
+                                                    <value>anonymous</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>Request: USER anonymous</description>
+                    <name>FTP Request Server Receive</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Request Client Send</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <channel_client_send>
+                    <name>ifconfig</name>
+                    <transport>channel</transport>
+                    <mutable>false</mutable>
+                    <output>IGlmY29uZmln</output>
+                    <payload>
+                        <string_field output_length="8" output_offset="0">
+                            <value>
+                                <string>
+                                    <value> </value>
+                                </string>
+                            </value>
+                        </string_field>
+                        <string_field output_length="64" output_offset="8">
+                            <value>
+                                <option>
+                                    <id>channel_command</id>
+                                </option>
+                            </value>
+                        </string_field>
+                    </payload>
+                </channel_client_send>
+                <channel_client_receive>
+                    <name>ifconfig  (Response)</name>
+                    <transport>channel</transport>
+                    <assertions>
+                        <match>
+                            <description>was eth0</description>
+                            <status>none</status>
+                            <operation>match</operation>
+                            <pattern>eth0</pattern>
+                        </match>
+                    </assertions>
+                    <input>ZXRoMCAgICAgIExpbmsgZW5jYXA6RXRoZXJuZXQgIEhXYWRkciAwMDoxOTpCOTpGNzo0QjowMgog
+ICAgICAgICAgaW5ldCBhZGRyOjEwLjEwLjMuMTA5ICBCY2FzdDoxMC4xMC43LjI1NSAgTWFzazoy
+NTUuMjU1LjI0OC4wCiAgICAgICAgICBpbmV0NiBhZGRyOiBmZWMwOjExOjoyMTk6YjlmZjpmZWY3
+OjRiMDIvNjQgU2NvcGU6U2l0ZQogICAgICAgICAgaW5ldDYgYWRkcjogMjAwMTo0Mjg6OjIxOTpi
+OWZmOmZlZjc6NGIwMi82NCBTY29wZTpHbG9iYWwKICAgICAgICAgIGluZXQ2IGFkZHI6IDIwMDE6
+NDI6OjIxOTpiOWZmOmZlZjc6NGIwMi82NCBTY29wZTpHbG9iYWwKICAgICAgICAgIGluZXQ2IGFk
+ZHI6IGZlODA6OjIxOTpiOWZmOmZlZjc6NGIwMi82NCBTY29wZTpMaW5rCiAgICAgICAgICBVUCBC
+Uk9BRENBU1QgUlVOTklORyBNVUxUSUNBU1QgIE1UVToxNTAwICBNZXRyaWM6MQogICAgICAgICAg
+UlggcGFja2V0czo1NzkwMzE2IGVycm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczowIGZyYW1lOjAK
+ICAgICAgICAgIFRYIHBhY2tldHM6ODAyNDk2IGVycm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczow
+IGNhcnJpZXI6MAogICAgICAgICAgY29sbGlzaW9uczowIHR4cXVldWVsZW46MTAwMAogICAgICAg
+ICAgUlggYnl0ZXM6MTA4Njc4Njc1NyAoMS4wIEdpQikgIFRYIGJ5dGVzOjI0ODQ3MjgyMSAoMjM2
+LjkgTWlCKQogICAgICAgICAgSW50ZXJydXB0OjE2OQoKZXRoMSAgICAgIExpbmsgZW5jYXA6RXRo
+ZXJuZXQgIEhXYWRkciAwMDoxOTpCOTpGNzo0QjowMwogICAgICAgICAgaW5ldCBhZGRyOjE5Mi4x
+NjguMzAuOSAgQmNhc3Q6MTkyLjE2OC4zMC4yNTUgIE1hc2s6MjU1LjI1NS4yNTUuMAogICAgICAg
+ICAgaW5ldDYgYWRkcjogZmU4MDo6MjE5OmI5ZmY6ZmVmNzo0YjAzLzY0IFNjb3BlOkxpbmsKICAg
+ICAgICAgIFVQIEJST0FEQ0FTVCBSVU5OSU5HIE1VTFRJQ0FTVCAgTVRVOjE1MDAgIE1ldHJpYzox
+CiAgICAgICAgICBSWCBwYWNrZXRzOjUzNDEwMTAgZXJyb3JzOjAgZHJvcHBlZDowIG92ZXJydW5z
+OjAgZnJhbWU6MAogICAgICAgICAgVFggcGFja2V0czoyMjkwNTQ2IGVycm9yczowIGRyb3BwZWQ6
+MCBvdmVycnVuczowIGNhcnJpZXI6MAogICAgICAgICAgY29sbGlzaW9uczowIHR4cXVldWVsZW46
+MTAwMAogICAgICAgICAgUlggYnl0ZXM6MTAyOTI3NzI1MiAoOTgxLjUgTWlCKSAgVFggYnl0ZXM6
+NzM5NTkwNDEwICg3MDUuMyBNaUIpCiAgICAgICAgICBJbnRlcnJ1cHQ6MjA5CgpldGgyICAgICAg
+TGluayBlbmNhcDpFdGhlcm5ldCAgSFdhZGRyIDAwOjE1OjE3OjM1OkMyOkU2CiAgICAgICAgICBp
+bmV0IGFkZHI6MTkyLjE2OC4xNDAuMjU0ICBCY2FzdDoxOTIuMTY4LjE0MC4yNTUgIE1hc2s6MjU1
+LjI1NS4yNTUuMAogICAgICAgICAgaW5ldDYgYWRkcjogZmVjMDoxMTo6MjE1OjE3ZmY6ZmUzNTpj
+MmU2LzY0IFNjb3BlOlNpdGUKICAgICAgICAgIGluZXQ2IGFkZHI6IDIwMDE6NDI4OjoyMTU6MTdm
+ZjpmZTM1OmMyZTYvNjQgU2NvcGU6R2xvYmFsCiAgICAgICAgICBpbmV0NiBhZGRyOiAyMDAxOjQy
+OjoyMTU6MTdmZjpmZTM1OmMyZTYvNjQgU2NvcGU6R2xvYmFsCiAgICAgICAgICBpbmV0NiBhZGRy
+OiBmZTgwOjoyMTU6MTdmZjpmZTM1OmMyZTYvNjQgU2NvcGU6TGluawogICAgICAgICAgVVAgQlJP
+QURDQVNUIFJVTk5JTkcgTVVMVElDQVNUICBNVFU6MTUwMCAgTWV0cmljOjEKICAgICAgICAgIFJY
+IHBhY2tldHM6NDgwNTQzMSBlcnJvcnM6MCBkcm9wcGVkOjAgb3ZlcnJ1bnM6MCBmcmFtZTowCiAg
+ICAgICAgICBUWCBwYWNrZXRzOjEzNjU0IGVycm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczowIGNh
+cnJpZXI6MAogICAgICAgICAgY29sbGlzaW9uczowIHR4cXVldWVsZW46MTAwCiAgICAgICAgICBS
+WCBieXRlczo0MzMyMzQyNTkgKDQxMy4xIE1pQikgIFRYIGJ5dGVzOjE2ODg5MjEgKDEuNiBNaUIp
+CgpldGgzICAgICAgTGluayBlbmNhcDpFdGhlcm5ldCAgSFdhZGRyIDAwOjE1OjE3OjM1OkMyOkU3
+CiAgICAgICAgICBpbmV0IGFkZHI6MTkyLjE2OC40MC45ICBCY2FzdDoxOTIuMTY4LjQwLjI1NSAg
+TWFzazoyNTUuMjU1LjI1NS4wCiAgICAgICAgICBpbmV0NiBhZGRyOiBmZTgwOjoyMTU6MTdmZjpm
+ZTM1OmMyZTcvNjQgU2NvcGU6TGluawogICAgICAgICAgVVAgQlJPQURDQVNUIFJVTk5JTkcgTVVM
+VElDQVNUICBNVFU6MTUwMCAgTWV0cmljOjEKICAgICAgICAgIFJYIHBhY2tldHM6MzYwNDMyIGVy
+cm9yczoxMyBkcm9wcGVkOjAgb3ZlcnJ1bnM6MCBmcmFtZTo3CiAgICAgICAgICBUWCBwYWNrZXRz
+OjQ3Mjg1IGVycm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczowIGNhcnJpZXI6MAogICAgICAgICAg
+Y29sbGlzaW9uczowIHR4cXVldWVsZW46MTAwCiAgICAgICAgICBSWCBieXRlczoyMzQ4Njk2NCAo
+MjIuMyBNaUIpICBUWCBieXRlczoyMzYwNTUwMCAoMjIuNSBNaUIpCgpsbyAgICAgICAgTGluayBl
+bmNhcDpMb2NhbCBMb29wYmFjawogICAgICAgICAgaW5ldCBhZGRyOjEyNy4wLjAuMSAgTWFzazoy
+NTUuMC4wLjAKICAgICAgICAgIGluZXQ2IGFkZHI6IDo6MS8xMjggU2NvcGU6SG9zdAogICAgICAg
+ICAgVVAgTE9PUEJBQ0sgUlVOTklORyAgTVRVOjE2NDM2ICBNZXRyaWM6MQogICAgICAgICAgUlgg
+cGFja2V0czo4NTQ5MDYgZXJyb3JzOjAgZHJvcHBlZDowIG92ZXJydW5zOjAgZnJhbWU6MAogICAg
+ICAgICAgVFggcGFja2V0czo4NTQ5MDYgZXJyb3JzOjAgZHJvcHBlZDowIG92ZXJydW5zOjAgY2Fy
+cmllcjowCiAgICAgICAgICBjb2xsaXNpb25zOjAgdHhxdWV1ZWxlbjowCiAgICAgICAgICBSWCBi
+eXRlczo1NTQ1NDI0NTUgKDUyOC44IE1pQikgIFRYIGJ5dGVzOjU1NDU0MjQ1NSAoNTI4LjggTWlC
+KQoK</input>
+                    <send_action>ifconfig</send_action>
+                    <variables/>
+                </channel_client_receive>
+                <tcp_server_send>
+                    <description>Response: 331 Guest login ok, send your complete e-mail address as a password.</description>
+                    <name>FTP Response Server Send 2</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter>, </delimiter>
+                                    <elements>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <integer_field label="Response code: User name okay, need password (331)" name="response_code">
+                                                    <base>10</base>
+                                                    <value>
+                                                        <string>
+                                                            <value>331</value>
+                                                        </string>
+                                                    </value>
+                                                </integer_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>Guest</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>login</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>ok</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>send</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>your</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>complete</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>e-mail</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>address as a password.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 331 Guest login ok, send your complete e-mail address as a password.</description>
+                    <name>FTP Response Client Receive 2</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send 2</send_action>
+                    <variables/>
+                </tcp_client_receive>
+                <tcp_client_send>
+                    <description>Request: PASS user@mudynamics.com</description>
+                    <name>FTP Request Client Send 2</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field label="Request command: PASS" name="request_command">
+                                            <value>
+                                                <string>
+                                                    <value>PASS</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <email label="Request arg: user@mudynamics.com" name="request_arg">
+                                            <domain>
+                                                <string>
+                                                    <value>mudynamics.com</value>
+                                                </string>
+                                            </domain>
+                                            <username>
+                                                <string>
+                                                    <value>user</value>
+                                                </string>
+                                            </username>
+                                        </email>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>Request: PASS user@mudynamics.com</description>
+                    <name>FTP Request Server Receive 2</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Request Client Send 2</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <tcp_server_send>
+                    <description>Response: 230-we have counted 0 bad password attempts</description>
+                    <name>FTP Response Server Send 3</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="230-we have counted 0 bad password attempts\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-we</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>have</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>counted</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <integer_field>
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>0</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>bad password attempts</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-Hello User at USER@MUDYNAMICS.COM,\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-Hello</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>User</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>at</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <email>
+                                                    <domain>
+                                                        <string>
+                                                            <value>MUDYNAMICS.COM</value>
+                                                        </string>
+                                                    </domain>
+                                                    <username>
+                                                        <string>
+                                                            <value>USER</value>
+                                                        </string>
+                                                    </username>
+                                                </email>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>,</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-we have  users (max 0) logged in in your class at the moment.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-we</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>have</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>  </value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>users</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                        <quote>
+                                            <left_quote>(</left_quote>
+                                            <right_quote>)</right_quote>
+                                            <value>
+                                                <dsv>
+                                                    <delimiter> </delimiter>
+                                                    <elements>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>max</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                        <integer_field>
+                                                            <base>10</base>
+                                                            <value>
+                                                                <string>
+                                                                    <value>0</value>
+                                                                </string>
+                                                            </value>
+                                                        </integer_field>
+                                                    </elements>
+                                                </dsv>
+                                            </value>
+                                        </quote>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>logged in in your class at the moment.</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-Local time is: Mon Apr 20 10:32:12 -0700 2009\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-Local</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>time</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>is</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>:</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>Mon</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>Apr</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <integer_field>
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>20</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <dsv>
+                                            <delimiter>:</delimiter>
+                                            <elements>
+                                                <integer_field>
+                                                    <base>10</base>
+                                                    <value>
+                                                        <string>
+                                                            <value>10</value>
+                                                        </string>
+                                                    </value>
+                                                </integer_field>
+                                                <integer_field>
+                                                    <base>10</base>
+                                                    <value>
+                                                        <string>
+                                                            <value>32</value>
+                                                        </string>
+                                                    </value>
+                                                </integer_field>
+                                                <integer_field>
+                                                    <base>10</base>
+                                                    <value>
+                                                        <string>
+                                                            <value>12</value>
+                                                        </string>
+                                                    </value>
+                                                </integer_field>
+                                            </elements>
+                                        </dsv>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>-</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>0700</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                        <integer_field>
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>2009</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-All transfers are logged. If you don't like this, disconnect now.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-All</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>transfers</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>are</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>logged</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>If</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>you</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>don</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>'</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>t like this, disconnect now.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <string_field label="230-\r\n">
+                                    <value>
+                                        <string>
+                                            <value>230-</value>
+                                        </string>
+                                    </value>
+                                </string_field>
+                            </value>
+                        </line>
+                        <line label="230-tar-on-the-fly and gzip-on-the-fly are implemented; to get a whole\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter>; </delimiter>
+                                    <elements>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>230-tar-on-the-fly</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>and</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>gzip-on-the-fly</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>are</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>implemented</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>to get a whole</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-directory &quot;foo&quot;, &quot;get foo.tar&quot; or &quot;get foo.tar.gz&quot; may be used.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter>, </delimiter>
+                                    <elements>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>230-directory</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <quote>
+                                                    <left_quote>"</left_quote>
+                                                    <right_quote>"</right_quote>
+                                                    <value>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>foo</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                    </value>
+                                                </quote>
+                                            </elements>
+                                        </dsv>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <quote>
+                                                    <left_quote>"</left_quote>
+                                                    <right_quote>"</right_quote>
+                                                    <value>
+                                                        <dsv>
+                                                            <delimiter> </delimiter>
+                                                            <elements>
+                                                                <string_field>
+                                                                    <value>
+                                                                        <string>
+                                                                            <value>get</value>
+                                                                        </string>
+                                                                    </value>
+                                                                </string_field>
+                                                                <dsv>
+                                                                    <delimiter>.</delimiter>
+                                                                    <elements>
+                                                                        <string_field>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>foo</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </string_field>
+                                                                        <string_field>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>tar</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </string_field>
+                                                                    </elements>
+                                                                </dsv>
+                                                            </elements>
+                                                        </dsv>
+                                                    </value>
+                                                </quote>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>or</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <quote>
+                                                    <left_quote>"</left_quote>
+                                                    <right_quote>"</right_quote>
+                                                    <value>
+                                                        <dsv>
+                                                            <delimiter> </delimiter>
+                                                            <elements>
+                                                                <string_field>
+                                                                    <value>
+                                                                        <string>
+                                                                            <value>get</value>
+                                                                        </string>
+                                                                    </value>
+                                                                </string_field>
+                                                                <dsv>
+                                                                    <delimiter>.</delimiter>
+                                                                    <elements>
+                                                                        <string_field>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>foo</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </string_field>
+                                                                        <string_field>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>tar</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </string_field>
+                                                                        <string_field>
+                                                                            <value>
+                                                                                <string>
+                                                                                    <value>gz</value>
+                                                                                </string>
+                                                                            </value>
+                                                                        </string_field>
+                                                                    </elements>
+                                                                </dsv>
+                                                            </elements>
+                                                        </dsv>
+                                                    </value>
+                                                </quote>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>may be used.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-Please use gzip-on-the-fly only if you need it; most files already\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter>; </delimiter>
+                                    <elements>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>230-Please</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>use</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>gzip-on-the-fly</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>only</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>if</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>you</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>need</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>it</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>most files already</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-are compressed, and I will kill your processes if you waste my\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter>, </delimiter>
+                                    <elements>
+                                        <dsv>
+                                            <delimiter> </delimiter>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>230-are</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>compressed</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </dsv>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>and I will kill your processes if you waste my</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-ressources.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <struct>
+                                    <append_alternates/>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-ressources</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>.</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </struct>
+                            </value>
+                        </line>
+                        <line label="230-\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <string_field label="230-\r\n">
+                                    <value>
+                                        <string>
+                                            <value>230-</value>
+                                        </string>
+                                    </value>
+                                </string_field>
+                            </value>
+                        </line>
+                        <line label="230-The command &quot;site exec locate pattern&quot; will create a list of all\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-The</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>command</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <quote>
+                                            <left_quote>"</left_quote>
+                                            <right_quote>"</right_quote>
+                                            <value>
+                                                <dsv>
+                                                    <delimiter> </delimiter>
+                                                    <elements>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>site</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>exec</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>locate</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>pattern</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                    </elements>
+                                                </dsv>
+                                            </value>
+                                        </quote>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>will create a list of all</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-path names containing &quot;pattern&quot;.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>230-path</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>names</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>containing</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <quote>
+                                                    <left_quote>"</left_quote>
+                                                    <right_quote>"</right_quote>
+                                                    <value>
+                                                        <string_field>
+                                                            <value>
+                                                                <string>
+                                                                    <value>pattern</value>
+                                                                </string>
+                                                            </value>
+                                                        </string_field>
+                                                    </value>
+                                                </quote>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                        <line label="230-\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <string_field label="230-\r\n">
+                                    <value>
+                                        <string>
+                                            <value>230-</value>
+                                        </string>
+                                    </value>
+                                </string_field>
+                            </value>
+                        </line>
+                        <line label="230 Guest login ok, access restrictions apply.\r\n">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <integer_field>
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>230</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>Guest login ok, access restrictions apply.</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 230-we have counted 0 bad password attempts</description>
+                    <name>FTP Response Client Receive 3</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send 3</send_action>
+                    <variables/>
+                </tcp_client_receive>
+                <tcp_client_send>
+                    <description>Request: SYST</description>
+                    <name>FTP Request Client Send 3</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <string_field label="Request command: SYST" name="request_command">
+                                    <value>
+                                        <string>
+                                            <value>SYST</value>
+                                        </string>
+                                    </value>
+                                </string_field>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>Request: SYST</description>
+                    <name>FTP Request Server Receive 3</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Request Client Send 3</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <tcp_server_send>
+                    <description>Response: 215 UNIX Type: L8</description>
+                    <name>FTP Response Server Send 4</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <integer_field label="Response code: NAME system type (215)" name="response_code">
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>215</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>UNIX</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>Type</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>:</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>L8</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 215 UNIX Type: L8</description>
+                    <name>FTP Response Client Receive 4</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send 4</send_action>
+                    <variables/>
+                </tcp_client_receive>
+                <tcp_client_send>
+                    <description>Request: MKD yoda</description>
+                    <name>FTP Request Client Send 4</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <string_field label="Request command: MKD" name="request_command">
+                                            <value>
+                                                <string>
+                                                    <value>MKD</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field label="Request arg: yoda" name="request_arg">
+                                            <value>
+                                                <string>
+                                                    <value>yoda</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>Request: MKD yoda</description>
+                    <name>FTP Request Server Receive 4</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Request Client Send 4</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <tcp_server_send>
+                    <description>Response: 257 YODA new directory created.</description>
+                    <name>FTP Response Server Send 5</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <integer_field label="Response code: PATHNAME created (257)" name="response_code">
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>257</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>YODA</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                        <string_field>
+                                            <value>
+                                                <string>
+                                                    <value>new directory created.</value>
+                                                </string>
+                                            </value>
+                                        </string_field>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 257 YODA new directory created.</description>
+                    <name>FTP Response Client Receive 5</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send 5</send_action>
+                    <variables/>
+                </tcp_client_receive>
+                <tcp_client_send>
+                    <description>Request: QUIT</description>
+                    <name>FTP Request Client Send 5</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <string_field label="Request command: QUIT" name="request_command">
+                                    <value>
+                                        <string>
+                                            <value>QUIT</value>
+                                        </string>
+                                    </value>
+                                </string_field>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_client_send>
+                <tcp_server_receive>
+                    <description>Request: QUIT</description>
+                    <name>FTP Request Server Receive 5</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Request Client Send 5</send_action>
+                    <variables/>
+                </tcp_server_receive>
+                <tcp_server_send>
+                    <description>Response: 221 Goodbye.</description>
+                    <name>FTP Response Server Send 6</name>
+                    <transport>FTP</transport>
+                    <mutable>true</mutable>
+                    <payload>
+                        <line label="File Transfer Protocol (FTP)" name="ftp">
+                            <terminator>\r\n</terminator>
+                            <value>
+                                <dsv>
+                                    <delimiter> </delimiter>
+                                    <elements>
+                                        <integer_field label="Response code: Service closing control connection (221)" name="response_code">
+                                            <base>10</base>
+                                            <value>
+                                                <string>
+                                                    <value>221</value>
+                                                </string>
+                                            </value>
+                                        </integer_field>
+                                        <struct>
+                                            <append_alternates/>
+                                            <elements>
+                                                <string_field label="Response arg: Goodbye." name="response_arg">
+                                                    <value>
+                                                        <string>
+                                                            <value>Goodbye</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                                <string_field>
+                                                    <value>
+                                                        <string>
+                                                            <value>.</value>
+                                                        </string>
+                                                    </value>
+                                                </string_field>
+                                            </elements>
+                                        </struct>
+                                    </elements>
+                                </dsv>
+                            </value>
+                        </line>
+                    </payload>
+                </tcp_server_send>
+                <tcp_client_receive>
+                    <description>Response: 221 Goodbye.</description>
+                    <name>FTP Response Client Receive 6</name>
+                    <transport>FTP</transport>
+                    <assertions/>
+                    <send_action>FTP Response Server Send 6</send_action>
+                    <variables/>
+                </tcp_client_receive>
+            </steps>
+            <variables/>
+        </scenario>
+    </templates>
+</mu_config>
