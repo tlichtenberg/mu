@@ -1,4 +1,4 @@
-# Api methods to access the Mu Network Configuration
+# Use these commands to access the legacy REST API for configuring Mu interfaces, network hosts, and routes
 require 'mu/api/netconfig'
 class Mu
 class Command
@@ -12,7 +12,7 @@ class Cmd_netconfig < Command
   end
 
   # returns a json representation of the specified element
-  #   * command-line args require an element ('interfaces', 'hosts' or 'routes')
+  #   * argv = command-line arguments, requires an element (-e) argument, such as 'interfaces', 'hosts' or 'routes' or 'interfaces/a1' or 'hosts/dell-9'
   def cmd_get argv
     setup argv
     e = @hash['element']
@@ -22,7 +22,7 @@ class Cmd_netconfig < Command
   end
 
   # modifies a network element
-  #   * command-line args require a json configuration and the element to modify ('interfaces', 'hosts' or 'routes')
+  #   * argv = command-line arguments, requires a json configuration (-j) and the element (-e) to modify, such as 'interfaces', 'hosts' or 'routes' or 'interfaces/a1' or 'hosts/dell-9'
   def cmd_modify argv
     setup argv
     json = @hash['json']
@@ -34,7 +34,7 @@ class Cmd_netconfig < Command
 
 
   # creates a new network element
-  #   * command-line args require a json configuration and the element to modify ('interfaces', 'hosts' or 'routes')
+  #   * argv = command-line arguments, requires a json configuration (-j) and the element (-e) to modify, such as 'interfaces', 'hosts' or 'routes'
   def cmd_create argv
     setup argv
     json = @hash['json']
@@ -45,7 +45,7 @@ class Cmd_netconfig < Command
   end
 
   # deletes an existing network element
-  #   * command-line args require an element ('interfaces', 'hosts' or 'routes')
+  #   * argv = command-line arguments, requires a json configuration (-j) and the element (-e) to modify, such as 'interfaces', 'hosts' or 'routes' or 'interfaces/a1' or 'hosts/dell-9'
   def cmd_delete argv
     setup argv
     e = @hash['element']
@@ -55,7 +55,7 @@ class Cmd_netconfig < Command
   end
 
   # restores the network configuration from a file
-  #   * command-line arguments require a path to a json configuration file, and a boolean argument indicating whether or not existing elements should be cleared
+  #   * argv = command-line arguments, requires a path to a json configuration file (-f) , and a boolean (-b true|false) argument indicating whether or not existing elements should be cleared
   def cmd_restore argv
     setup argv
     filepath = @hash['filepath']
@@ -66,7 +66,7 @@ class Cmd_netconfig < Command
   end
 
   # clears existing network configuration hosts
-  #   * command-line args
+  #   * argv = command-line arguments 
   def cmd_clear_hosts argv
     setup argv
     response = @api.clear_hosts
@@ -75,7 +75,7 @@ class Cmd_netconfig < Command
   end
 
   # resolves network configuration hosts
-  #   * command-line arg
+  #   * argv = command-line arguments, requires the name (-n) of the host to resolve (determines its ip address and adds it to the network configuration)
   def cmd_resolve_hosts argv
     setup argv
     name = @hash['name']
@@ -85,7 +85,7 @@ class Cmd_netconfig < Command
   end
 
   # clears existing network interfaces
-  #   * command-line arg require the names of the interfaces to clear
+  #   * argv = command-line arguments, require the names of the interfaces to clear (-i name)
   def cmd_clear_interface argv
     setup argv
     interface = @hash['interfaces']
@@ -95,6 +95,7 @@ class Cmd_netconfig < Command
   end
 
   # clears existing vlan configurations
+  #  * argv = command-line arguments 
   def cmd_clear_vlans argv
     setup argv
     response = @api.clear_vlans
@@ -103,7 +104,7 @@ class Cmd_netconfig < Command
   end
 
   # clears existing network routes
-  #   * command-line args
+  #   * argv = command-line arguments 
   def cmd_clear_routes argv
     setup argv
     response = @api.clear_routes
@@ -113,10 +114,10 @@ class Cmd_netconfig < Command
 
 
   # saves the network configuration to a file
-  #   * command-line args require the elements to save, or 'all', and a filename to save the settings to
+  #   * argv = command-line arguments, requires the element (-e element, such as 'interfaces', or -e all) to save, and a file name (-f) to save the settings to
   def cmd_save argv
     setup argv
-    e = @hash['elements'] || "all"
+    e = @hash['elements']
     filepath = @hash['filepath'] || "config.json"
     response = @api.save(e, filepath)
     msg response
@@ -234,7 +235,7 @@ private
            "mu cmd_netconfig:modify -j <json> -e <element>",
            "mu cmd_netconfig:resolve_hosts -n <name>",
            "mu cmd_netconfig:restore -f <filepath> [-b <clear_existing>]",
-           "mu cmd_netconfig:save -f <filepath>",
+           "mu cmd_netconfig:save -e <element> -f <filepath>",
         ]
 
         max_long_size = helps.inject(0) { |memo, obj| [ obj[:long].size, memo ].max }

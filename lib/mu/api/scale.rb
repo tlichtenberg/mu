@@ -105,10 +105,10 @@ class Scale
   end
 
   # returns a packet capture file from scale verify
-  #   * the id of the scale engine
-  #   * the name of the pcap file to retrieve
-  def pcap(botId, file)
-      response = get "pcap", "botId=#{botId}&file=#{file}"
+  #   * bot_id = the id of the scale engine
+  #   * file = the name of the pcap file to retrieve
+  def pcap(bot_id, file)
+      response = get "pcap", "botId=#{bot_id}&file=#{file}"
       msg response, Logger::DEBUG
       return response
   end

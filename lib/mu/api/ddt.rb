@@ -22,6 +22,7 @@ class Ddt
   end
 
   # sets and executes test suite
+  #   * uuid = the uuid of a testset loaded on the Mu
   def run_testset(uuid)
     response = @http.post("session/test/runSuite/#{uuid}")
     msg response, Logger::DEBUG
@@ -108,9 +109,9 @@ class Ddt
   end
 
   # sets the hosts in the loaded scenario
-  #   * roles = an array of the roles defined in the scenario
+  #   * roles = an array of the host roles defined in the scenario
   #   * names = an array of host names to be mapped to the roles
-  #   * type = network layer type (v4, v6 or l2) matching the defined roles
+  #   * type = network layer type (v4, v6 or l2) matching the defined hosts
   def set_hosts(roles=[], names=[], type="v4")
     responses = Array.new
     hosts = roles.length.to_i
@@ -163,7 +164,7 @@ class Ddt
   end
 
   # collects results until the test is done or the timeout expires
-  #   * time in seconds to wait for the test to complete
+  #   * timeout = time in seconds to wait for the test to complete
   def collect_results(timeout=120)
     wait_until_done(timeout)
     results = get_testset_results
@@ -216,14 +217,13 @@ class Ddt
     return response
   end
 
-private
- 
+
   # imports a csv file to the Mu
-  # (TODO: this method is not yet working)
   #  * filepath = the path to the csv file
-  #  * filename = the name with which to save the file on the Mu
-  def csv_import(filepath, filename)
-    response = @http.post_form("session/test/import/csv", filepath, filename)
+  def csv_import(filepath)
+    return "new_session required" if $cookie.nil? or $cookie["testSessionId"].nil?
+    testSessionId = $cookie["testSessionId"]
+    response = @http.post_form("session/test/import/csv?testSessionId=#{testSessionId}", filepath)
     msg response, Logger::DEBUG
     return response
   end

@@ -1,4 +1,5 @@
 # Api methods to access the Mu System System page
+# Use these commands to restart system services or to get status details for the Mu system
 require 'mu/api/system'
 class Mu
 class Command
@@ -7,12 +8,13 @@ class Cmd_system < Command
   attr_accessor :host, :username, :password, :api
 
   # outputs help for this command
+  #  * argv = command-line arguments
   def cmd_help argv
     help
   end
 
-  # restarts the Mu System
-  #   * array of command-line arguments
+  # restarts the Mu system services (this does not reboot the appliance)
+  #   * argv = command-line arguments
   def cmd_restart argv
     setup argv
     response = @api.restart
@@ -20,8 +22,8 @@ class Cmd_system < Command
     return response
   end
 
-  # gets basic system status
-  #   * array of command-line arguments
+  # gets the complete System status page
+  #   * argv = command-line arguments
   def cmd_status argv
     setup argv
     response = @api.status
@@ -29,8 +31,8 @@ class Cmd_system < Command
     return response
   end
 
-  # gets additional system status
-  #   * array of command-line arguments
+  # gets additional system status information, imncluding hard drive, model and serial data
+  #   * argv = command-line arguments
   def cmd_status2 argv
     setup argv
     response = @api.status2

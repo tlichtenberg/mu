@@ -1,4 +1,4 @@
-# Api methods to access the Mu Scale Api
+# Use these commands to access the legacy REST API for Scale test (Studio Scale). 
 require 'mu/api/scale'
 class Mu
 class Command
@@ -12,7 +12,7 @@ class Cmd_scale < Command
   end
 
   # configures the scale json object
-  #  * array of command-line arguments containing --params and --params_value, such as -p volume -pv 100
+  #  * argv = command-line arguments, requires a params (-p) and params value (-pv) argument, such as -p volume -pv 100
   def cmd_configure argv   
     setup argv
     param = @hash['params']
@@ -23,7 +23,7 @@ class Cmd_scale < Command
   end
 
   # starts a scale test
-  #  * command-line args require a scale json object
+  #  * argv = command-line arguments, requires a scale json object to have been configured
   def cmd_start argv
     setup argv
     response = @api.start
@@ -32,7 +32,7 @@ class Cmd_scale < Command
   end
 
   # verifies a scale test
-  #  * command-line args require a scale json object
+  #  * argv = command-line arguments, requires a scale json object to have been configured
   def cmd_verify argv
     setup argv
     response = @api.verify
@@ -41,7 +41,7 @@ class Cmd_scale < Command
   end
 
   # updates a running scale test (valid only if the test is running with no pattern)
-  #  * command-line args require a json params object such as '{ "volume": 100 }'
+  #   * argv = command-line arguments, requires a json params object (-p) such as '{ "volume": 100 }'
   def cmd_update argv
     setup argv
     params = @hash['params']
@@ -51,7 +51,7 @@ class Cmd_scale < Command
   end
 
   # returns status from a scale test
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_status argv
     setup argv
     response = @api.status
@@ -60,7 +60,7 @@ class Cmd_scale < Command
   end
 
   # returns an array of currently reserved scale engines
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_list argv
     setup argv
     response = @api.list
@@ -69,7 +69,7 @@ class Cmd_scale < Command
   end
 
   # returns scale engine configuration information
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_about argv
     setup argv
     response = @api.about
@@ -78,7 +78,7 @@ class Cmd_scale < Command
   end
 
   # returns a packet capture file from scale verify
-  #  * command-line args require a scale engine id and the pcap filename
+  #  * argv = command-line arguments, requires a scale engine id (-b) and the pcap filename (-f) argument
   def cmd_pcap argv
     setup argv
     bot_id = @hash['bot_id']
@@ -89,7 +89,7 @@ class Cmd_scale < Command
   end
 
   # returns the status of all reserved scale engines
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_statuses argv
     setup argv
     response = @api.statuses
@@ -98,10 +98,11 @@ class Cmd_scale < Command
   end
 
   # returns scale test data for charting
-  #   * command-line args require a view, which specifies the TIMELINE or CALLGRAPH chart.
-  #   * zoom specifies the zoom level (0 to 1). 1 returns data for 100% of the time range, 0.5 returns data for 50% of the time range, and 0 returns only the last minute of data
-  #   * position must be 0.
-  #   * scale engine id
+  #   * argv = command-line arguments, requires:
+  #   * view (-w), which specifies the TIMELINE or CALLGRAPH chart.
+  #   * zoom (-z), which  specifies the zoom level (0 to 1). 1 returns data for 100% of the time range, 0.5 returns data for 50% of the time range, and 0 returns only the last minute of data
+  #   * position (-p), which must be 0.
+  #   * scale engine id (-b)
   def cmd_data argv
     setup argv
     begin
@@ -118,7 +119,9 @@ class Cmd_scale < Command
   end
 
   # returns scale test data for charting
-  #  * command-line args require a zoom level and position(0)
+  #  * argv = command-line arguments, requires:
+  #  * zoom (z) level
+  #  * position(-p 0)
   def cmd_pattern argv
     setup argv
     begin
@@ -133,7 +136,7 @@ class Cmd_scale < Command
   end
 
   # stops a scale test
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_stop argv
     setup argv
     response = @api.stop
@@ -142,7 +145,7 @@ class Cmd_scale < Command
   end
 
   # releases the currently reserved scale engine
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_release argv
     setup argv
     response = @api.release
@@ -151,7 +154,7 @@ class Cmd_scale < Command
   end
 
   # reserves a scale engine
-  #   * command-line args require a scale engine id
+  #   * argv = command-line arguments, require a scale engine id (-b) argument
   def cmd_reserve_scale_engine argv
     setup argv
     bot_id = @hash['bot_id']
@@ -161,7 +164,7 @@ class Cmd_scale < Command
   end
 
   # releases a scale engine
-  #   * command-line args require a scale engine id
+  #   * argv = command-line arguments, require a scale engine id (-b) argument
   def cmd_release_scale_engine argv
    setup argv
     bot_id = @hash['bot_id']
@@ -171,7 +174,7 @@ class Cmd_scale < Command
   end
 
   # deletes a scale engine
-  #   * command-line args require a scale engine id
+  #   * argv = command-line arguments, require a scale engine id (-b) argument
   def cmd_delete_scale_engine argv
     setup argv
     bot_id = @hash['bot_id']

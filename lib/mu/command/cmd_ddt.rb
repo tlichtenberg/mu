@@ -1,7 +1,5 @@
-# The Mu Ddt Api (For Studio Verify) is made available through this collection
-# of Api methods to setup and run a functional test suite.
-# (note: import_csv is not yet implemented, so the csv must currently be resident
-# on the Mu and is referenced by its uuid)
+# Use these commands to access the legacy REST API for Test Sets (Studio Verify).
+# Until import_csv is implemented, the .csv file must exist on the Mu System and include a UUID.
 
 require 'mu/api/ddt'
 class Mu
@@ -11,12 +9,13 @@ class Cmd_ddt < Command
   attr_accessor :host, :username, :password, :api, :hash
 
   # displays command-line help
+  #  * argv = command-line arguments
   def cmd_help argv
     help
   end
 
   # verifies the loaded scenario
-  # * command-line args
+  # * argv = command-line arguments
   def cmd_run argv  
     setup argv
     response = @api.run
@@ -25,7 +24,7 @@ class Cmd_ddt < Command
   end
 
   # runs the loaded scenario and testset
-  #   * command-line args
+  #   * argv = command-line arguments, requires a uuid (-u) argument
   def cmd_run_testset argv
     setup argv
     uuid = @hash['uuid']
@@ -35,7 +34,7 @@ class Cmd_ddt < Command
   end
 
   # creates a new Studio Verify session
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_new_session argv
     setup argv
     response = @api.new_session
@@ -44,7 +43,7 @@ class Cmd_ddt < Command
   end
 
   # closes the currently active Studio Verify session
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_close_session argv
     setup argv
     response = @api.close_session
@@ -53,7 +52,7 @@ class Cmd_ddt < Command
   end
 
   # returns an array of current Studio Verify session id's
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_sessions argv
     setup argv
     response = @api.get_sessions
@@ -62,7 +61,7 @@ class Cmd_ddt < Command
   end
 
   # closes all existing Studio Verify sessions# * command-line args
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_close_all_sessions argv
     setup argv
     response = @api.close_all_sessions
@@ -71,7 +70,7 @@ class Cmd_ddt < Command
   end
 
   # returns all Studio Verify sessions
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_all_sessions argv
     setup argv
     response = @api.get_all_sessions
@@ -80,7 +79,7 @@ class Cmd_ddt < Command
   end
 
   # sets up a test session
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_setup_test argv
     setup argv
     response = @api.setup_test
@@ -89,7 +88,7 @@ class Cmd_ddt < Command
   end
 
   # tears down a test session
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_teardown_test argv
     setup argv
     response = @api.teardown_test
@@ -98,7 +97,7 @@ class Cmd_ddt < Command
   end
 
   # loads a Mu Studio scenario
-  #   * command-line args require the uuid of a scenario that is already loaded on the Mu
+  #   * argv = command-line arguments, requires the uuid (-u) argument, the uuid of a scenario that is already loaded on the Mu
   def cmd_load_scenario argv
     setup argv
     uuid = @hash['uuid']
@@ -110,7 +109,7 @@ class Cmd_ddt < Command
   # returns array of host hashmaps, e.g.
   # [{"role"=>"192.168.30.188 (A1.V4)", "roleId"=>"host_0", "layer"=>"v4"}, {"role"=>"192.168.30.9 (dell-eth1.V4)", "roleId"=>"host_1", "layer"=>"v4"}]
   # NOTE: the values of 'roleId' are what are passed to set_hosts as 'roles', not 'role'
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_hosts argv
     setup argv
     response = @api.get_hosts
@@ -120,7 +119,9 @@ class Cmd_ddt < Command
   
   # sets a Mu Studio scenario's host. takes an arrays of roles and names, e.g. ["h1", "h2"], ["a1", dell-9"]
   # optional types array ["v4", "v4"]
-  #   * command-line args require an array of roles and names (and optionally, type). The roles must match those defined within the scenario
+  #   * argv = command-line arguments, requires an array of roles and names (and optionally, type). The roles must match those defined within the scenario
+  #   * roles and names can be single-values or comma-separated lists.
+  #   * type is a single value (v4, v6 or l2)
   def cmd_set_hosts argv
     setup argv
     roles = @hash['roles']
@@ -151,7 +152,7 @@ class Cmd_ddt < Command
   end
 
   # returns the channel elements of a Mu Studio scenario
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_channels argv
     setup argv
     response = @api.get_channels
@@ -160,7 +161,8 @@ class Cmd_ddt < Command
   end
 
   # sets the channel elements of a loaded scenario
-  #   * command-line args requires arrays of roles and names. The roles must all be 'channel' and the names are names of valid hosts
+  #   * argv = command-line arguments, requires arrays of roles and names. The roles must all be 'channel' and the names are names of valid hosts
+  #   * roles and names can be single-values or comma-separated lists.
   def cmd_set_channels argv
     setup argv
     roles = @hash['roles']
@@ -187,7 +189,7 @@ class Cmd_ddt < Command
 
   # returns array of options hashmap, consisting of name and value keys, e.g.
   # [{"name"=>"io.timeout", "value"=>250}, {"name"=>"io.delay", "value"=>0}]
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_options argv
     setup argv
     response = @api.get_options
@@ -196,7 +198,8 @@ class Cmd_ddt < Command
   end
 
   # sets the options of the loaded scenario
-  #  # * command-line args requires arrays of valid options names and values
+  #   * argv = command-line arguments, requires arrays of valid options names and values
+  #   * names and values can be single-values or comma-separated lists.
   def cmd_set_options argv
     setup argv
     names = @hash['names']
@@ -222,7 +225,7 @@ class Cmd_ddt < Command
   end
 
   # returns the status of the current testset
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_testset_status argv
     setup argv
     response = @api.get_testset_status
@@ -232,7 +235,7 @@ class Cmd_ddt < Command
 
   # returns results from the current testset. can be called repeatedly during a test run.
   # the end of a test is indicated by the presence of the word 'END' in the returned results array
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_get_testset_results argv
     setup argv
     response = @api.get_testset_results
@@ -241,7 +244,7 @@ class Cmd_ddt < Command
   end
 
   # displays testset results
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_display_results argv
    setup argv
    response = @api.results
@@ -250,8 +253,8 @@ class Cmd_ddt < Command
   end
 
   # exports a testset from Mu Studio to a csv file
-  #   * command-line args require a testset uuid
-  def cmd_cvs_export argv
+  #   * argv = command-line arguments, requires a uuid (-u) argument that is the uuid of a testset on the Mu
+  def cmd_csv_export argv
     setup argv
     msg @api.new_session
     uuid = @hash['uuid']
@@ -261,23 +264,20 @@ class Cmd_ddt < Command
     return response
   end
 
-private
-
    # imports a csv-formatted testset to a Mu system
-   # # TODO: this method is not yet workind
-   #   * command-line args requires the csv testset file and a filename
-  def cmd_cvs_import argv
+   #   * argv = command-line arguments, requires the csv testset file (-t)
+  def cmd_csv_import argv
     setup argv
     msg @api.new_session
     testset_file = @hash['testset']
-    filename = @hash['filename']
-    msg " call import with #{testset_file} and #{filename}", Logger::DEBUG
-    response = @api.csv_import(testset_file, filename)
+    response = @api.csv_import(testset_file)
     @api.close_session
     msg response
     return response
   end
-  
+
+private
+
   def setup argv
     parse_cli argv
     @host = (@@mu_ip.nil?) ? "127.0.0.1" : @@mu_ip
@@ -298,11 +298,6 @@ private
           args << argv.shift if argv.first[0,1] != '-'
 
           k = argv.shift
-
-          if [ '-f', '--filename' ].member? k
-              @hash['filename'] = shift(k, argv)
-              next
-          end
 
           if [ '-h', '--help' ].member? k
             help
@@ -366,7 +361,6 @@ private
 
   def help
         helps = [
-            { :short => '-f', :long => '--filename', :value => '<string>', :help => 'filename for import' },
             { :short => '-h', :long => '--help', :value => '', :help => 'help on command line options' },
             { :short => '-m', :long => '--mu_string', :value => '<string>', :help => 'user, password, mu_ip in the form of admin:admin@10.9.8.7' },
             { :short => '-n', :long => '--names', :value => '<string>', :help => 'comma-separated list of names used for set_hosts and set_channels' },
@@ -398,7 +392,8 @@ private
           "mu cmd_ddt:teardown_test",
           "mu cmd_ddt:close_session",
           "mu cmd_ddt:close_all_sessions",
-          "mu cmd_ddt:cvs_export -u <uuid> "
+          "mu cmd_ddt:csv_export -u <uuid> ",
+          "mu cmd_ddt:csv_import -t <testset(csv file)> "
        ]
 
         max_long_size = helps.inject(0) { |memo, obj| [ obj[:long].size, memo ].max }

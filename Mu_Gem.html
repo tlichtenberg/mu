@@ -284,7 +284,7 @@ table.wide th {
   <div id="important">
     <p><strong>Before Using  This Gem</strong>:</p>
 <ul>
-  <li><strong><em>Ensure that you have installed the necesssary software</em></strong>. You must have   installed ruby 1.8.6 and the following gems (type <strong>sudo gem
+  <li><strong><em>Note: The Mu Gem install will also install the following ruygems</em></strong>. You must have   installed ruby 1.8.6 and the following gems (type <strong>sudo gem
       install</strong> <em>&lt;gem&gt;</em>):
       <ul>
         <li><em>hexy</em>. This ensures that  hex dumps print pretty :)</li>
@@ -312,7 +312,7 @@ style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
 </ul>
 <h2>Legacy REST API Commands</h2>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#executables"></a>&nbsp;<a href="#executables"></a>&nbsp;<a href="#executables"></a><a href="#api-methods">go to section &raquo;</a>
-    <p>&nbsp;&nbsp;&nbsp; These commands provide access to legacy REST API commands supported by the Mu system. </span></p>
+    <p>&nbsp;&nbsp;&nbsp; These commands provide access to legacy REST API commands supported by the Mu system. </p>
   <ul>
   <li><a href="#cmd_ddt">cmd_ddt</a></li>
       <li><a href="#cmd_scale">cmd_scale</a></li>
@@ -537,7 +537,8 @@ style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
   <p><a href="#top">back to top &uarr;</a></p>
   <h2><a name="cmd_runverify" id="cmd_runscale2"></a>cmd_runverify</h2>
   <p>Runs a Studio Verify test, given a Mu Studio Scenario and
-  Test Set (these templates must be in Mu Studio XML format).</p>
+  Test Set (The scenario template must be in Mu Studio XML format. The
+  Test Set template can be in either the Mu Studio XML format or CSV).</p>
   <table border="1" cellpadding="1" cellspacing="1" class=wide>
     <tr>
       <th>Command</th>
@@ -976,7 +977,7 @@ style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
   </table>
   <p><a href="#top">back to top &uarr;</a></p>
   <h2><a name="cmd_ddt" id="cmd_runscale7"></a>cmd_ddt</h2>
-  <p>Use these commands to access the  legacy REST API for Test Sets (Studio Verify). Until import_csv is implemented, the .csv file must exist on the Mu System and include a UUID.</p>
+  <p>Use these commands to access the  legacy REST API for Test Sets (Studio Verify).</p>
   <table border="1" cellpadding="1" cellspacing="1" class=wide>
     <tr>
       <th>Command</th>
@@ -1079,7 +1080,7 @@ style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></li>
     tr>
       <td><em>csv_import</em></td>
       <td>Imports a .csv file to create a Test Set on the Mu system: <strong>csv_import</strong>
-        <strong>-t</strong><em> filename.csv </em><strong>-f</strong> <em>filename</em><h6 class="code">mu cmd_ddt:csv_import -t my-testset.csv -f my-testset-template</h6></td>
+        <strong>-t</strong><em> filename.csv </em><h6 class="code">mu cmd_ddt:csv_import -t my-testset.csv</h6></td>
     </tr>
   </table>
   <table border="1" cellpadding="1" cellspacing="1" class=wide>

@@ -10,12 +10,13 @@ class Cmd_runscale < Command
   attr_accessor :api, :params, :hosts, :addr_indexes, :offset_indexes
 
   # displays command-line help
+  #  * argv = command-line arguments
   def cmd_help argv
      help
   end
 
   # sets up, executes, and closes a Studio Scale test
-  #   * command-line args
+  #   * argv = command-line arguments , requires a scenario (-s) argument
   def cmd_run_file argv
     setup argv
 
@@ -53,7 +54,8 @@ class Cmd_runscale < Command
     @api.release
   end
 
-   # public method to be called to run through a directory of msl files
+  # sets up, executes, and closes a Studio Scale test for each scenario (.msl file) found in the specified directory
+  #   * argv = command-line arguments, requires a directory (-d) argument
   def cmd_run_dir argv
     setup argv
 

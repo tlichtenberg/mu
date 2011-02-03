@@ -6,8 +6,8 @@
   "timeout": 5000,
   "limitConcurrency": false,
   "hosts": {
-    "host_0": "b1/*,10000,1",
-    "host_1": "b2/*"
+    "host_0": "b1/*,10000",
+    "host_1": "b2/*,1"
   },
   "pattern": {
     "iterations": 1,

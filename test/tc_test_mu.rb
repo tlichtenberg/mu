@@ -12,6 +12,8 @@ end
 class TCTestMu < Test::Unit::TestCase
 
   $dir = Dir.pwd
+
+  
   
   def setup
       $log.level = Logger::INFO
@@ -85,7 +87,7 @@ class TCTestMu < Test::Unit::TestCase
       assert result==true, "expected 'true'"
   end
 
-  # -------------- cmd_ddt --------------scenario_options.expected_error
+  # -------------- cmd_ddt --------------
 
   def test_cmd_ddt_get_all_sessions
       api = Mu::Command::Cmd_ddt.new
@@ -95,6 +97,21 @@ class TCTestMu < Test::Unit::TestCase
       sessions = Nokogiri::XML(api.cmd_get_all_sessions [])
       sess = sessions.xpath("//session")
       assert(sess.length == 2, "expected 2 sessions, got #{sess.length}")
+  ensure
+      api.cmd_close_all_sessions []
+  end
+
+  def test_cmd_ddt_csv_import_export
+      api = Mu::Command::Cmd_ddt.new
+      api.cmd_close_all_sessions []
+      api.cmd_new_session []
+      response = Nokogiri::XML(api.cmd_csv_import [ "-t", "#{Dir.pwd}/test/data/default_test.csv"])
+      status = response.xpath("//status")[0].content
+      assert(status == "true", "expected status=true, got #{status}")
+      uuid = response.xpath("//message")[0].content
+      response = Nokogiri::XML(api.cmd_csv_export ["-u", uuid ])
+      status = response.xpath("//status")[0].content
+      assert(status == "true", "expected status=true, got #{status}")
   ensure
       api.cmd_close_all_sessions []
   end
@@ -149,7 +166,7 @@ class TCTestMu < Test::Unit::TestCase
   end
 
   def test_cmd_ddt_get_set_channels
-      puts "expects SSH channel defined on a host named dell-eth1"
+      add_localhost_with_channel
       scenario_uuid = "379a4cf8-8fe7-4d2d-8f6b-b8c6b71557b4"  # ftp_with_channel
       api = Mu::Command::Cmd_ddt.new
       api.cmd_close_all_sessions [ "-v" ]
@@ -162,7 +179,7 @@ class TCTestMu < Test::Unit::TestCase
       doc = Nokogiri::XML(response)
       channels = doc.xpath("//channel")
       assert channels.length==1, "expected 1 scenario channel, found #{channels.length}"
-      response = api.cmd_set_channels [ "-r", "channel", "-n", "dell-eth1" ]
+      response = api.cmd_set_channels [ "-r", "channel", "-n", "localhost" ]
       response.each do | resp |
         doc = Nokogiri::XML(resp)
         message = doc.xpath("//message").text
@@ -211,7 +228,7 @@ class TCTestMu < Test::Unit::TestCase
       http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/data_cgi.xml"))
       api.load_scenario(data_cgi_uuid)
       api.setup_test
-      response = api.set_hosts( ["192.168.40.217","192.168.40.9"], ["a1", "dell-eth1"] )
+      response = api.set_hosts( ["192.168.40.217","192.168.40.9"], ["a1", "a2"] )
       response.each do | resp |
         doc = Nokogiri::XML(resp)
         message = doc.xpath("//message").text
@@ -256,9 +273,6 @@ class TCTestMu < Test::Unit::TestCase
   end
 
   # -------------- cmd_muapi ------------
-
-  # no tests for:
-  # backup
 
   def test_cmd_muapi_types
       api = Mu::Command::Cmd_muapi.new
@@ -314,13 +328,11 @@ class TCTestMu < Test::Unit::TestCase
       assert( File.exists?("#{job_id}.pcap"), "expected to find #{job_id}.pcap but didn't")
   end
 
-  # assumes hosts a1.v4 -> dell-eth1.v4
   def test_cmd_muapi_analysis
       # $log.level = Logger::DEBUG
-      puts "assumes hosts a1.v4 -> dell-eth1.v4"
-      uuid = "f07f3cb9-b1a0-4840-a7fd-e733c89f303c"
       http_helper = Mu::HttpHelper.new(@mu_ip, @mu_admin_user, @mu_admin_pass, "/api/v3/")
-      http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/proto_arp.xml"))
+      response = http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/irc.xml"))
+      uuid = response.xpath("//uuid")[0].content
       api = Mu::Command::Cmd_muapi.new
       
       run_uuid = api.cmd_run make_uuid_args(uuid) # use the run_uuid for subsequent calls
@@ -328,21 +340,25 @@ class TCTestMu < Test::Unit::TestCase
       status = api.cmd_status make_uuid_args(run_uuid)
       assert(status == "RUNNING", "after RUN, expected status=RUNNING, got #{status}")
       api.cmd_pause make_uuid_args(run_uuid)
-      sleep 2
-      status = api.cmd_status make_uuid_args(run_uuid)
-      assert(status == "SUSPENDED", "after PAUSE, expected status=SUSPENDED, got #{status}")
-      api.cmd_resume make_uuid_args(run_uuid)
-      sleep 2
-      status = api.cmd_status make_uuid_args(run_uuid)
-      assert(status == "RUNNING", "after RESUME, expected status=RUNNING, got #{status}")
-      list = api.cmd_list_by_status ["-s" "running"]
-      assert(list.to_s.include?(run_uuid), "expected run_uuid #{run_uuid}in the list_ny_status for running, but got #{list}")
+      while true
+        sleep 2
+        status = api.cmd_status make_uuid_args(run_uuid)
+        break if status == "SUSPENDED"        
+      end
+      api.cmd_resume make_uuid_args(run_uuid)   
+      while true
+        sleep 2
+        status = api.cmd_status make_uuid_args(run_uuid)      
+        break if status == "RUNNING"     
+      end
+      list = api.cmd_list_by_status ["-s", "running"]
+      assert(list.to_s.include?(run_uuid), "expected run_uuid #{run_uuid}in the list_by_status for running, but got #{list}")
       api.cmd_stop make_uuid_args(run_uuid)
       sleep 2
       status = api.cmd_status make_uuid_args(run_uuid)
       assert(status == "ABORTED", "after STOP, expected status=ABORTED, got #{status}")
       name = api.cmd_get_name make_uuid_args(run_uuid) # returns a Nokogiri::XML::Attr
-      assert(name.value.include?("proto/arp"), "expected name = proto/arp but got #{name.value}")
+      assert(name.value.include?("irc_scenario_mugem"), "expected name = irc_scenario_mugem but got #{name.value}")
   ensure
     begin
       api.cmd_stop make_uuid_args(run_uuid)
@@ -355,18 +371,16 @@ class TCTestMu < Test::Unit::TestCase
     args = Array.new
     args << "-u"
     args << uuid
+    args << "-v"
     return args
   end
 
-  # assumes hosts a1.v4 -> dell-eth1.v4
   def test_cmd_muapi_archive
       # $log.level = Logger::DEBUG
-      puts "assumes hosts a1.v4 -> dell-eth1.v4"
-      uuid = "f07f3cb9-b1a0-4840-a7fd-e733c89f303c"
-
       # load it
       http_helper = Mu::HttpHelper.new(@mu_ip, @mu_admin_user, @mu_admin_pass, "/api/v3/")
-      http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/proto_arp.xml"))
+      response = http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/irc.xml"))
+      uuid = response.xpath("//uuid")[0].content
       api = Mu::Command::Cmd_muapi.new
 
       # run it
@@ -396,15 +410,12 @@ class TCTestMu < Test::Unit::TestCase
       assert(File.exists?(file_name), "did not find the expected file #{file_name}")
   end
 
-  # assumes hosts a1.v4 -> dell-eth1.v4
   def test_cmd_muapi_delete
-      # $log.level = Logger::DEBUG
-      puts "assumes hosts a1.v4 -> dell-eth1.v4"
-      uuid = "f07f3cb9-b1a0-4840-a7fd-e733c89f303c"
-
+      # $log.level = Logger::DEBUG"
       # load it
       http_helper = Mu::HttpHelper.new(@mu_ip, @mu_admin_user, @mu_admin_pass, "/api/v3/")
-      http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/proto_arp.xml"))
+      response = http_helper.post_xml("templates/import", File.read("#{Dir.pwd}/test/data/irc.xml"))
+      uuid = response.xpath("//uuid")[0].content
       api = Mu::Command::Cmd_muapi.new
 
       # run it
@@ -521,14 +532,12 @@ class TCTestMu < Test::Unit::TestCase
   end
 
   def test_cmd_netconfig_resolve_hosts
-      puts "assumes the Mu can resolve a host named mrtwig"
     # $log.level = Logger::DEBUG
       api = Mu::Command::Cmd_netconfig.new
-      response = api.cmd_delete ["-e", "hosts/mrtwig"] # delete it if it exists
-      # assert response.include?("deleted"), "expected to find 'deleted' but got #{response}"
-      response = api.cmd_resolve_hosts ["-n", "mrtwig"]
-      response = api.cmd_get ["-e", "hosts/mrtwig"]
-      assert response["name"] == "mrtwig", "expected to find mrtwig but found #{response["name"]}"
+      add_localhost_with_channel
+      response = api.cmd_resolve_hosts ["-n", "localhost"]
+      response = api.cmd_get ["-e", "hosts/localhost"]
+      assert response["name"] == "localhost", "expected to find localhost but found #{response["name"]}"
   end
 
   def test_cmd_netconfig_save
@@ -599,6 +608,7 @@ class TCTestMu < Test::Unit::TestCase
       args << "#{Dir.pwd}/test/data/data_cgi.xml"
       args << "-i"
       args << "b1,b2"
+      args << "-v"
       app.cmd_run args
       assert(app.errors.size == 0, "expected 0 errors but got #{app.errors}")
   end
@@ -612,7 +622,7 @@ class TCTestMu < Test::Unit::TestCase
       args << "-s"
       args << "#{Dir.pwd}/test/data/data_cgi.xml"
       args << "-t"
-      args << "#{Dir.pwd}/test/data/test_data_cgi_error.xml"
+      args << "#{Dir.pwd}/test/data/default_test.csv"
       args << "-i"
       args << "b1,b2"
       args << "-v"
@@ -678,6 +688,29 @@ class TCTestMu < Test::Unit::TestCase
       api = Mu::Command::Cmd_system.new
       result = api.cmd_status2 []
       assert(result.to_s.include?("raid"), "expected to find 'raid' in results, but got #{result}")
+  end
+
+  #---------------------- utility methods -----------------------
+
+  def add_localhost_with_channel
+    local_host = {
+        "name"=> "localhost",
+        "ssh_channel"=> {
+          "username"=> "root",
+          "prompt"=> "]#",
+          "commands"=> [
+
+          ],
+          "tcp_port"=> 22,
+          "password"=> "bogus"
+        },
+        "v4_addr"=> @mu_ip
+      }
+      # $log.level = Logger::DEBUG
+      api = Mu::Command::Cmd_netconfig.new
+      api.cmd_delete ["-e", "hosts/localhost"] # may not exist
+      response = api.cmd_create ["-j", JSON(local_host), "-e", "hosts"]
+      assert(response.include?("created"), "Failed to create host:" + response.to_s)
   end
 
 end

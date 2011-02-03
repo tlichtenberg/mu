@@ -47,7 +47,12 @@ Gemfile.lock
 bin/
 lib/.svn/
 lib/mu/.svn/
+lib/mu/api/.svn/
+lib/mu/command/.svn/
+lib/mu/curl/.svn/
+lib/mu/cli/.svn/
 mu.gemspec
 test/.svn/
 test/data/.svn/
+scale_configuration.json
 test/scale_configuration.json

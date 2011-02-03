@@ -10,10 +10,11 @@ class HttpHelper
     $cookie = "" if $cookie.nil?
   end
 
-  # --------------- RestClient methods ---------------------
+  #--------------- RestClient methods ---------------------
 
-  #  ------- gets ---------
-
+  # basic get call
+  #  * e = the url suffix
+  #  * p = hash of parameters, such as headers
   def get(e, p={})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     msg url, Logger::DEBUG
@@ -25,6 +26,9 @@ class HttpHelper
     return resp
   end
 
+  # get call for json, converts the response to json if applicable
+  #  * e = the url suffix
+  #  * p = hash of parameters, such as headers
   def get_json(e, p={})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     msg url, Logger::DEBUG
@@ -45,6 +49,9 @@ class HttpHelper
     return resp
   end
 
+  # get call for xml, converts the response to xml if applicable
+  #  * e = the url suffix
+  #  * p = hash of parameters, such as headers
   def get_xml(e, p={})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     msg url, Logger::DEBUG
@@ -70,8 +77,10 @@ class HttpHelper
     end
   end
 
-  #  ------- posts ---------
-
+  # basic post call
+  #  * e = the url suffix
+  #  * body = the data to post
+  #  * p = hash of parameters, such as headers
   def post(e, body="", p = {})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     msg "#{url}  #{body}", Logger::DEBUG
@@ -94,6 +103,10 @@ class HttpHelper
     return resp
   end
 
+  #  post call for uploading json
+  #  * e = the url suffix
+  #  * body = the json object to post
+  #  * p = hash of parameters, such as headers
   def post_json(e, json, p = {})
      url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
      msg "#{url}  #{json}", Logger::DEBUG
@@ -114,6 +127,10 @@ class HttpHelper
     return resp
   end
 
+  #  post call for uploading xml
+  #  * e = the url suffix
+  #  * body = the xml object to post
+  #  * p = hash of parameters, such as headers
   def post_xml(e, doc, p = {})
     begin
       url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
@@ -146,23 +163,33 @@ class HttpHelper
     return xmldoc
   end
 
-  def post_form(e, filepath, filename, p = {})
+  #  post call for uploading form data
+  #  * e = the url suffix
+  #  * filepath = the file to post
+  #  * p = hash of parameters, such as headers
+  def post_form(e, filepath, p = {})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     params = {}.merge! p
-    params = { :content_type => "multipart/form-data", :file => File.new(filepath), :name => filename }
+    params = { :content_type => "application/x-www-form-urlencoded", :file => File.new(filepath, 'rb') }
     resp = RestClient.post(url, params)
     $cookie = resp.cookies unless resp.cookies.empty?
-     msg "got cookie #{$cookie}", Logger::DEBUG unless resp.cookies.empty?
+    msg "got cookie #{$cookie}", Logger::DEBUG unless resp.cookies.empty?
     return resp
   end
 
-  #  ------- other ---------
+  #------- other ---------
 
+  # basic delete call
+  #  * e = the url suffix
   def delete(e)
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     return RestClient.delete(url)
   end
 
+  # put call for json
+  #  * e = the url suffix
+  #  * body = the json object to put
+  #  * p = hash of parameters, such as headers
   def put_json(e, json, p={})
      url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
      params = {}.merge! p
@@ -182,6 +209,10 @@ class HttpHelper
     return resp
   end
 
+  # fetches a file and stores it locally
+  #  * e = the url suffix
+  #  * filename = the name to store the file locally
+  #  * p = hash of parameters, such as headers
   def download_file(e, filename, p={})
     url = "https://#{@username}:#{@password}@#{@host}#{@docroot}#{e}"
     params = {}.merge! p

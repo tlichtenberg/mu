@@ -7,12 +7,13 @@ class Cmd_homepage < Command
   attr_accessor :host, :username, :password, :api
 
   # displays command-line help
+  #   * argv = command-line arguments
   def cmd_help argv
     help
   end
 
   # returns all homepage information
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_all argv 
     setup argv
     response = @api.all
@@ -21,7 +22,7 @@ class Cmd_homepage < Command
   end
 
   # returns recent homepage information
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_recent argv
     setup argv
     response = @api.recent
@@ -30,7 +31,7 @@ class Cmd_homepage < Command
   end
 
   # returns homepage status information
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_status argv
     setup argv
     response = @api.status
@@ -39,7 +40,7 @@ class Cmd_homepage < Command
   end
 
   # returns the latest test
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_latest_test argv
     setup argv
     response = @api.latest_test
@@ -48,7 +49,7 @@ class Cmd_homepage < Command
   end
 
   # returns the queued tests
-  #   * command-line args
+  #   * argv = command-line arguments
   def cmd_queue_test argv
     setup argv
     response = @api.queue_test

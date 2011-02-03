@@ -7,12 +7,13 @@ class Cmd_runscenario < Command
   attr_accessor :host, :username, :password, :ddt_api, :errors
 
   # displays command-line help
+  #  * argv = command-line arguments
   def cmd_help argv
      help
   end
 
   # verifies a Mu Studio scenario
-  #   * command-line args
+  #   * argv = command-line arguments, requires a scenario (-s) argument, which must be an xml scenario template to be loaded onto the Mu
   def cmd_run argv
     args = parse_cli argv
     setup

@@ -1,5 +1,4 @@
-# The legacy Mu Api (for Fuzzing) is made available through this library and collection
-# of executable methods.
+# Use these commands to access the legacy REST API for Test Runs (Protocol Mutation, Scenario Mutation, DoS, and PV tests).
 
 require 'mu/api/muapi'
 class Mu
@@ -9,12 +8,13 @@ class Cmd_muapi < Command
   attr_accessor :host, :username, :password, :api, :docroot
 
   # displays command-line help
+  #  * argv = command-line arguments
   def cmd_help argv
     help
   end
 
   # for any of the possible status values, returns a list of analysis
-  #   * command-line args require the status values to query, such as 'running' or 'failed'
+  #   * argv = command-line arguments, requires the status (-s) argument, specifying the values to query, such as 'running' or 'failed'
   def cmd_list_by_status argv
     setup argv
     status = @hash['status']
@@ -29,7 +29,7 @@ class Cmd_muapi < Command
   end
 
   # returns the status of a particular analysis
-  #   * command-line args require the analysis' uuid
+  #   * argv = command-line argumentsm require a uuid (-u) argument, specifying a test on the Mu
   def cmd_status argv
     setup argv
     uuid = @hash['uuid']
@@ -40,7 +40,7 @@ class Cmd_muapi < Command
 
   # runs an analysis, reference is the posted uuid
   # ex: run(1234-1234-1234-1234, "new_name")
-  #   * command-line args require a uuid and an optional name such that each successive run of the same uuid yields a new name
+  #   * argv = command-line arguments, requires a uuid (-u) and an optional name such that each successive run of the same uuid yields a new name
   def cmd_run argv
     setup argv
     uuid = @hash['uuid']
@@ -55,7 +55,7 @@ class Cmd_muapi < Command
   end
 
   # aborts a running analysis. the next queued analysis will start
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_stop argv
      setup argv
      uuid = @hash['uuid']
@@ -65,7 +65,7 @@ class Cmd_muapi < Command
   end
 
   # pauses a running analysis. Note that any queued analysis will NOT begin
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_pause argv
      setup argv
      uuid = @hash['uuid']
@@ -75,7 +75,7 @@ class Cmd_muapi < Command
   end
 
   # resumes a paused analysis
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_resume argv
     setup argv
     uuid = @hash['uuid']
@@ -85,7 +85,7 @@ class Cmd_muapi < Command
   end
 
   # delets an analysis or template of any type
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_delete argv
      setup argv
      uuid = @hash['uuid']
@@ -95,7 +95,7 @@ class Cmd_muapi < Command
   end
 
   # returns a list of faults (if any) for the analysis
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_get_faults argv
     setup argv
     uuid = @hash['uuid']
@@ -111,7 +111,7 @@ class Cmd_muapi < Command
   end
 
   # returns the name of a test referenced by uuid
-  #   * command-line args require a uuid
+  #   * argv = command-line arguments, requires a uuid (-u) argument specifying the test
   def cmd_get_name argv
      setup argv
      uuid = @hash['uuid']
@@ -121,6 +121,7 @@ class Cmd_muapi < Command
   end
 
   # returns the types of templates on the Mu
+  #  * argv = command-line arguments
   def cmd_types argv
      setup argv
      response = @api.types
@@ -129,7 +130,7 @@ class Cmd_muapi < Command
   end
 
   # lists all templates of the given type
-  #   * command-line args require a type (such as 'scenario'_ and an option to return templates_only
+  #   * argv = command-line arguments, requires a type (-t) argument, such as 'scenario'
   def cmd_list argv
     setup argv
     type = @hash['type']
@@ -145,7 +146,7 @@ class Cmd_muapi < Command
   end
 
   # exports a template by type and name
-  #   * command-line args requires a template type and template name
+  #   * argv = command-line arguments, requires a template type (-t) and template name (-n) argument
   def cmd_export_by_type_and_name argv
      setup argv
      type = @hash['type']
@@ -156,7 +157,7 @@ class Cmd_muapi < Command
   end
 
   # exports a template by uuid
-  #   * command-line args requires a template uuid
+  #   * argv = command-line arguments, requires a template uuid (-u) argument
   def cmd_export_by_uuid argv
      setup argv
      uuid = @hash['uuid']
@@ -169,9 +170,10 @@ class Cmd_muapi < Command
   # generate and download an archive of all data produced by
   # a particular test
   # ex:
-  #   * achive(run) returns job_id
-  #   * archive(status) requires job_id
-  #   * archive(get) if archive(status) == "Finished" requires job_id
+  #   * argv = command-line arguments, requires a command (-c) argument
+  #   * command=run returns the job_id
+  #   * command=status (called after 'run'), requires the job_id (-u) argument
+  #   * command=get (called when status returns "Finished"), requires the job_id (-u) argument
   def cmd_archive argv
      setup argv
      command = @hash['command']
@@ -184,9 +186,10 @@ class Cmd_muapi < Command
   # backup has a set of three commands that are used to generate,
   # query and retrieve a backup
   # ex:
-  #   * backup(run) returns job_id
-  #   * backup(status) requires job_id
-  #   * backup(get) requires job_id
+  #   * argv = command-line arguments, requires a command (-c) argument
+  #   * command=run returns the job_id
+  #   * command=status (called after 'run')
+  #   * command=get (called when status returns "Finished"), requires the name (-n) argument
   #   * name = backup file name (will be given a .dat extension)
   def cmd_backup argv
      setup argv
@@ -200,9 +203,10 @@ class Cmd_muapi < Command
   # capture has a set of three commands that are used to generate
   # packet captures, poll the status and return the resulting file
   # ex:
-  #   * capture(run) returns job_id
-  #   * capture(status) requires job_id
-  #   * capture(get) requires job_id
+  #   * argv = command-line arguments, requires a command (-c) argument
+  #   * command=run returns the job_id
+  #   * command=status (called after 'run'), requires the job_id (-u) argument
+  #   * command=get (called when status returns "Finished"), requires the job_id (-u) argument
   #   * port = the Mu interface on which to capture packets
   def cmd_capture argv
      setup argv

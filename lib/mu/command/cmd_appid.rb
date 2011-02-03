@@ -15,8 +15,8 @@ class Cmd_appid < Command
   end
 
   # returns a boolean indicating whether the scale test is running or not
-  #  * command-line args
-  def cmd_running?
+  #  * argv = command-line arguments
+  def cmd_running? argv
     if @api.nil?
       msg "false"
       return
@@ -33,7 +33,7 @@ class Cmd_appid < Command
   end
 
   # runs a single Studio Scale test
-  #  * command-line args require a scenario
+  #  * argv = command-line arguments, requires a scenario (-s) argument
   def cmd_run_file argv
     setup argv
 
@@ -60,7 +60,7 @@ class Cmd_appid < Command
   end
 
    # runs through a directory of msl files and executes a Studio Scale test for each one
-   #  * command-line args require a directory
+   #  * argv = command-line arguments, require a directory (-d) argument
   def cmd_run_dir argv
     setup argv
 

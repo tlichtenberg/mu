@@ -1,5 +1,6 @@
-# Runs a Studio Verify test, given a Mu Studio scenario and testset
-# (these templates must be in Mu Studio XML format)
+# Runs a Studio Verify test, given a Mu Studio Scenario and Test Set.
+# The Scenario template must be in Mu Studio XML format. The
+# Test Set template can be in either the Mu Studio XML format or CSV
 require 'mu/api/ddt'
 class Mu
 class Command
@@ -13,7 +14,9 @@ class Cmd_runverify < Command
   end
 
   # sets up, executes, and closes a Studio Verify session
-  #   * command-line args
+  #   * argv = command-line arguments, requires a scenario (-s) argument, which must be an xml scenario template to be loaded onto the Mu
+  #   * and a testset (-t) argument of an xml test set template to be loaded on the Mu
+  #   * .msl and .csv files are not currently supported
   def cmd_run argv
     args = parse_cli argv
     setup
@@ -34,12 +37,7 @@ class Cmd_runverify < Command
       msg "testset required"
       return help
     else
-      if args['testset'].include?(".xml")
-         testset = args['testset']
-      else # TODO: eventually, uploading csv files may be supported by this class
-        msg "only .xml files are currently supported"
-        return help
-      end
+      testset = args['testset']
     end
 
     if not args['dir']
@@ -85,12 +83,19 @@ class Cmd_runverify < Command
     begin
       msg @ddt_api.new_session
 
-      msg testset_filename, Logger::DEBUG
-      f = File.open(testset_filename)
-      doc = Nokogiri::XML(f)
-      response = @http.post_xml("templates/import", doc)
-      msg "response from post(#{testset_filename}):\n#{response}", Logger::DEBUG
-      testset_uuid = doc.xpath("//ddt_set")[0].attribute('uuid')
+      if File.extname(testset_filename) == ".xml"
+        msg testset_filename, Logger::DEBUG
+        f = File.open(testset_filename)
+        doc = Nokogiri::XML(f)
+        response = @http.post_xml("templates/import", doc)
+        msg "response from post(#{testset_filename}):\n#{response}", Logger::DEBUG
+        testset_uuid = doc.xpath("//ddt_set")[0].attribute('uuid')
+      elsif File.extname(testset_filename) == ".csv"
+        doc = Nokogiri::XML(@ddt_api.csv_import(testset_filename))
+        testset_uuid = doc.xpath("//message")[0].content
+      else
+        raise "Testset filename extension must be either .xml or .csv, but filename is #{testset}"
+      end
 
       msg scenario_filename, Logger::DEBUG
       f = File.open(scenario_filename)
@@ -125,7 +130,7 @@ class Cmd_runverify < Command
              hosts_array << host
            rescue => e
              puts e
-             puts "expected to find host name embedded in role, e.g. 'client (A1.V4)'"
+             puts "no hosts were specified, and none were found embedded in the role, e.g. 'client (A1.V4)'"
            end
          else
            hosts_array << @interfaces[i]

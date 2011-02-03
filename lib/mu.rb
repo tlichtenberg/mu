@@ -9,18 +9,22 @@ require 'uri'
 
 class Mu
     require 'mu/helper'
-    Version = "0.1.0".freeze
+    @version = "5.7.2"
+    Version = @version.freeze
     $log = Logger.new(STDOUT)
     $cookie = nil # http_helper
            
     extend Mu::Helper
     
-    def self.run cmd, argv
+    def self.run cmd, argv     
         $log.datetime_format = "%Y-%m-%d %H:%M:%S"
         $log.level = Logger::INFO
         $log.formatter = proc { |severity, datetime, progname, msg|
          "[#{datetime} #{severity}]: #{msg}\n"
          }
+
+        check_version
+
         kname, mname = cmd.split(':', 2)
         klass = Mu::Command.const_get kname.capitalize rescue nil
         mname ||= 'default'
@@ -35,7 +39,21 @@ class Mu
         else
             error "Unknown command #{cmd}"
         end        
-    end    
+    end
+
+    def self.check_version
+        system = Mu::System.new(ENV['MU_IP'], ENV['MU_ADMIN_USER'], ENV['MU_ADMIN_PASS'])
+        response = Nokogiri::XML(system.status)
+        version_string = response.xpath("//versions/platform")[0].content
+        #puts "version = #{version_string}"
+        idx = version_string.rindex(".")
+        version = version_string[0...idx]
+        #puts "version = #{version}"
+        #puts "@version = #{@version}"
+        if @version > version
+          puts "*** Warning, version mismatch. The Mu Gem version (#{@version}) is higher than the Mu System version (#{version}) ***"
+        end
+    end
 end
 
 require 'mu/client'

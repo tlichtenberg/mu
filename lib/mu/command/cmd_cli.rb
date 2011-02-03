@@ -11,28 +11,28 @@ class Cmd_cli < Command
   end
 
   # runs the cli help command
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_cli_help argv
     setup argv
     msg run_cmd("help")
   end
 
   # runs the cli command '?"
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_question argv
     setup argv
     msg run_cmd("?")
   end
 
   # displays the command line history for the current session
-  #  * command-line args
+  #  * argv = command-line arguments
   def cmd_history argv
     setup argv
     msg run_cmd("history")
   end
 
   # pings an ip address
-  #  * command-line args require an ip address
+  #  * argv = command-line arguments, requires an ip address (-a) argument
   def cmd_ping argv
     setup argv
     addr = @hash["address"]
@@ -40,7 +40,7 @@ class Cmd_cli < Command
   end
 
   # runs traceroute on an ip address
-  #  * command-line args require an ip address
+  #  * argv = command-line arguments, requires an ip address (-a) argument
   def cmd_traceroute argv
     setup argv
     addr = @hash["address"]

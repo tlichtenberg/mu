@@ -123,7 +123,7 @@ class Muapi
   end
 
   # lists the templates on the Mu system using the template type and template name:
-  #  * type = the template type
+  #  * type = the template type, such as 'scenario' or 'monitor'
   def list(type)
     names = Array.new
     doc = @http.get_xml("templates/list?type=#{type}")
